@@ -1,0 +1,587 @@
+package xbrlparser;
+
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+
+import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import javax.swing.JOptionPane;
+import javax.xml.stream.XMLInputFactory;
+import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
+import javax.xml.stream.XMLStreamReader;
+
+/**
+ * 
+ * @author kareem.moustafa
+ */
+public class XBRLPasrer {
+
+	/**
+	 * @param args
+	 *            the command line arguments
+	 */
+	
+    //The path of the folder containg files
+	static final String dirPath = "/home/kareem/Desktop/netbeans/new";
+	static String driver;
+	static String url;
+	static String databaseName;
+	static String userName;
+	static String password;
+    private static final int MYTHREADS = 30;
+
+	public static void main(String[] args) {
+        ExecutorService executor = Executors.newFixedThreadPool(MYTHREADS);
+
+		XBRLPasrer pasrer = new XBRLPasrer();
+
+
+	
+			//System.out.println(dirPath);
+//		String companyRegNo = null;
+		
+		if(dirPath != null){
+			File file = new File (dirPath);
+			
+				//System.out.println(file.exists());
+			
+				if(file.list().length > 0){
+
+					String[] files = file.list();
+					for (String string : files) {
+						if(pasrer.isXBRL(string)){
+				            Runnable worker = new MyRunnable(string);
+				            executor.execute(worker);
+
+						}
+					}
+					 executor.shutdown();
+				        // Wait until all threads are finish
+				        while (!executor.isTerminated()) {
+				 
+				        }
+				}
+			
+		}
+		JOptionPane.showMessageDialog(null, "Parsing Done !");
+	}
+
+	public XMLStreamReader readXBRLFile(String name, int key) {
+		XMLStreamReader xmlsr = null;
+		try {
+			switch (key) {
+			case 1:
+				File jarPath = (File) new File(XBRLPasrer.class
+						.getProtectionDomain().getCodeSource().getLocation()
+						.toURI());
+				String propertiesPath = jarPath.getParentFile().getPath();
+				File f = new File(propertiesPath + "/" + name);
+				FileReader reader = new FileReader(f);
+				XMLInputFactory factory = XMLInputFactory.newInstance();
+				xmlsr = factory.createXMLStreamReader(reader);
+				break;
+			case 2:
+				//System.out.println(name);
+				File f1 = new File(name);
+				FileReader reader1 = new FileReader(f1);
+				XMLInputFactory factory1 = XMLInputFactory.newInstance();
+				xmlsr = factory1.createXMLStreamReader(reader1);
+				break;
+
+			}
+
+			return xmlsr;
+
+		} catch (FileNotFoundException ex) {
+			JOptionPane.showMessageDialog(null, "File Not Found!");
+		} catch (URISyntaxException ex) {
+			JOptionPane.showMessageDialog(null, "File Not Found!");
+
+		} catch (XMLStreamException ex) {
+			JOptionPane.showMessageDialog(null, "Can not parse File!");
+
+		}
+		return null;
+	}
+
+	public String getCompRegNo(String fileName, int key) {
+
+		String compRegNo = null;
+		try {
+			// InputStream url = getClass().getResourceAsStream(fileName);
+			XMLStreamReader xmlsr = readXBRLFile(fileName, key);
+			int event = xmlsr.getEventType();
+			while (xmlsr.hasNext()) {
+				switch (event) {
+				case XMLStreamConstants.START_ELEMENT:
+					// //System.out.println("Start Element: " +
+					// xmlsr.getLocalName());
+					if (xmlsr.getLocalName().equals(
+							"UKCompaniesHouseRegisteredNumber")) {
+
+						while (event != XMLStreamConstants.CHARACTERS) {
+							event = xmlsr.next();
+							if (event == XMLStreamConstants.CHARACTERS)
+								compRegNo = xmlsr.getText();
+
+						}
+					}
+					break;
+
+				}
+				if (compRegNo != null) {
+					xmlsr.close();
+					return compRegNo;
+				} else
+					event = xmlsr.next();
+				//
+			}
+		} catch (XMLStreamException ex) {
+			JOptionPane.showMessageDialog(null, "Can not parse File!");
+
+		} 
+
+		return compRegNo;
+
+	}
+
+	public int parseInsertKeysAndValues(String fileName, String companyString,
+			int k) {
+		int status = 0;
+		String key = "";
+		String value = "";
+		String contextRef = "";
+		String unitRef = "";
+		String decimals = "";
+		String openTag = "";
+//		ArrayList<String> openTages = new ArrayList<String>();
+		try {
+			// InputStreamReader url = new InputStreamReader();
+			XMLStreamReader xmlsr = readXBRLFile(fileName, k);
+
+			int event = xmlsr.getEventType();
+			while (xmlsr.hasNext()) {
+				if (event == XMLStreamConstants.START_ELEMENT) {
+					if (xmlsr.getLocalName().equals("context")
+							|| xmlsr.getLocalName().equals("schemaRef")
+							|| xmlsr.getLocalName().equals("xbrl")
+							|| xmlsr.getLocalName().equals("unit")) {
+
+						openTag = xmlsr.getLocalName();
+					}
+					if (!openTag.equals("context")
+							&& !openTag.equals("schemaRef")
+							&& !openTag.equals("xbrl")
+							&& !openTag.equals("unit")
+							&& !xmlsr.getLocalName().equals(
+									"UKCompaniesHouseRegisteredNumber")
+							&& xmlsr.getAttributeCount() != 0) {
+						key = xmlsr.getLocalName();
+						// Getting Attributes
+
+						if (xmlsr.getAttributeCount() > 0) {
+							for (int i = 0; i < xmlsr.getAttributeCount(); i++) {
+								if (xmlsr.getAttributeName(i).getLocalPart()
+										.equals("contextRef"))
+									contextRef = xmlsr.getAttributeValue(i);
+								else if (xmlsr.getAttributeName(i)
+										.getLocalPart().equals("unitRef"))
+									unitRef = xmlsr.getAttributeValue(i);
+								else if (xmlsr.getAttributeName(i)
+										.getLocalPart().equals("decimals"))
+									decimals = xmlsr.getAttributeValue(i);
+							}
+						}
+
+						event = xmlsr.next();
+						// OpenClosedTag key without Value
+						if (event == XMLStreamConstants.END_ELEMENT) {
+							// Insert to DB
+
+							if (!contextRef.isEmpty() && !key.isEmpty()) {
+								Connection conn = getConnection();
+								String q = "INSERT INTO parsingresults (file_name, company_reg_id, key_name, value, unit_ref, decimals, context__ref) "
+										+ "VALUES (?,?,?,?,?,?,?);";
+								PreparedStatement statement = conn
+										.prepareStatement(q);
+								if(k == 1){
+									if(fileName.contains("/")){
+										String extension = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.length());
+										statement.setString(1, extension);
+									}
+									else	
+									statement.setString(1, fileName);
+									
+								}
+								else if(k == 2){
+									File f = new File(fileName);
+								statement.setString(1, f.getName());
+								}
+								statement.setString(2, companyString);
+								statement.setString(3, key);
+								if (value.isEmpty())
+									statement.setString(4, null);
+								else
+									statement.setString(4, value);
+								if (unitRef.isEmpty())
+									statement.setString(5, null);
+								else
+									statement.setString(5, unitRef);
+								if (decimals.isEmpty())
+									statement.setString(6, null);
+								else
+									statement.setString(6, decimals);
+
+								statement.setString(7, contextRef);
+								//System.out.println(statement.toString());
+								status = statement.executeUpdate();
+								conn.close();
+							}
+						
+						} else if (event == XMLStreamConstants.CHARACTERS
+								&& !xmlsr.isWhiteSpace()) {
+							value = xmlsr.getText();
+							// Insert to DB
+
+							if (!contextRef.isEmpty() && !key.isEmpty()) {
+								Connection conn = getConnection();
+								String q = "INSERT INTO parsingresults (file_name, company_reg_id, key_name, value, unit_ref, decimals, context__ref)"
+										+ "VALUES(?,?,?,?,?,?,?);";
+								PreparedStatement statement = conn
+										.prepareStatement(q);
+								if(k == 1){
+									if(fileName.contains("/")){
+										String extension = fileName.substring(fileName.lastIndexOf("/") + 1, fileName.length());
+										statement.setString(1, extension);
+									}
+									else	
+									statement.setString(1, fileName);
+
+								}
+								else if(k == 2){
+									File f = new File(fileName);
+								statement.setString(1, f.getName());
+								}
+								statement.setString(2, companyString);
+								statement.setString(3, key);
+								//System.out.println(value);
+								if (value.isEmpty())
+									statement.setString(4, null);
+								else
+									statement.setString(4, value);
+								if (unitRef.isEmpty())
+									statement.setString(5, null);
+								else
+									statement.setString(5, unitRef);
+								if (decimals.isEmpty())
+									statement.setString(6, null);
+								else
+									statement.setString(6, decimals);
+
+								statement.setString(7, contextRef);
+
+								status = statement.executeUpdate();
+								conn.close();
+							}
+						}
+
+					}
+				} else if (event == XMLStreamConstants.END_ELEMENT) {
+					if (xmlsr.getLocalName().equals("context")
+							|| xmlsr.getLocalName().equals("schemaRef")
+							|| xmlsr.getLocalName().equals("xbrl")
+							|| xmlsr.getLocalName().equals("unit"))
+						openTag = "";
+				}
+				event = xmlsr.next();
+
+				contextRef = "";
+				key = "";
+				value = "";
+				unitRef = "";
+				decimals = "";
+			}
+		} catch (XMLStreamException ex) {
+			JOptionPane.showMessageDialog(null, "Can not parse File!");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		}
+		return status;
+	}
+
+	public int parseInsertReferences(String fileName, String companyString,
+			int key) {
+		int status = 0;
+		String unit_measure = "";
+		String unit_id = "";
+		String context_entity_id = "";
+		String context_entity_segmentem = "";
+		String context_id = "";
+		String context_start_date = "";
+		String context_end_date = "";
+		String openTag = "";
+		boolean entityOpen = false;
+		boolean periodOpen = false;
+		boolean segmentOpen = false;
+		try {
+			XMLStreamReader xmlsr = readXBRLFile(fileName, key);
+
+			int event = xmlsr.getEventType();
+			while (xmlsr.hasNext()) {
+				if (event == XMLStreamConstants.START_ELEMENT) {
+					if (xmlsr.getLocalName().equals("context")) {
+	
+
+						openTag = xmlsr.getLocalName();
+					} else if (xmlsr.getLocalName().equals("unit"))
+						openTag = "unit";
+					if (openTag.equals("context")
+							&& xmlsr.getLocalName().equals("context")) {
+
+						// Getting Attributes
+						for (int i = 0; i < xmlsr.getAttributeCount(); i++) {
+							if (xmlsr.getAttributeName(i).getLocalPart()
+									.equals("id"))
+								context_id = xmlsr.getAttributeValue(i);
+						}
+
+					} else if (openTag.equals("context")
+							&& xmlsr.getLocalName().equals("entity")) {
+						entityOpen = true;
+					} else if (openTag.equals("context") && entityOpen
+							&& xmlsr.getLocalName().equals("identifier")) {
+						event = xmlsr.next();
+						if (event == XMLStreamConstants.CHARACTERS
+								&& !xmlsr.isWhiteSpace())
+							context_entity_id = xmlsr.getText();
+					} else if (openTag.equals("context") && entityOpen
+							&& xmlsr.getLocalName().equals("segment")) {
+						segmentOpen = true;
+
+					} else if (openTag.equals("context")
+							&& xmlsr.getLocalName().equals("period")) {
+						periodOpen = true;
+
+					} else if (openTag.equals("context") && periodOpen
+							&& xmlsr.getLocalName().equals("instant")) {
+						event = xmlsr.next();
+						if (event == XMLStreamConstants.CHARACTERS
+								&& !xmlsr.isWhiteSpace())
+							context_end_date = xmlsr.getText();
+					} else if (openTag.equals("context") && periodOpen
+							&& xmlsr.getLocalName().equals("startDate")) {
+						event = xmlsr.next();
+						if (event == XMLStreamConstants.CHARACTERS
+								&& !xmlsr.isWhiteSpace())
+							context_start_date = xmlsr.getText();
+					} else if (openTag.equals("context") && periodOpen
+							&& xmlsr.getLocalName().equals("endDate")) {
+						event = xmlsr.next();
+						if (event == XMLStreamConstants.CHARACTERS
+								&& !xmlsr.isWhiteSpace())
+							context_end_date = xmlsr.getText();
+					} else if (openTag.equals("context") && segmentOpen
+							&& xmlsr.getLocalName().equals("explicitMember")) {
+
+						event = xmlsr.next();
+						if (event == XMLStreamConstants.CHARACTERS
+								&& !xmlsr.isWhiteSpace())
+							if (context_entity_segmentem.isEmpty())
+								context_entity_segmentem += xmlsr.getText();
+							else
+								context_entity_segmentem += ","
+										+ xmlsr.getText();
+					}
+
+					else if (openTag.equals("unit")
+							&& xmlsr.getLocalName().equals("unit")) {
+						// Getting Attributes
+						for (int i = 0; i < xmlsr.getAttributeCount(); i++) {
+							if (xmlsr.getAttributeName(i).getLocalPart()
+									.equals("id"))
+								unit_id = xmlsr.getAttributeValue(i);
+						}
+					} else if (openTag.equals("unit")
+							&& xmlsr.getLocalName().equals("measure")) {
+
+						event = xmlsr.next();
+
+						if (event == XMLStreamConstants.CHARACTERS
+								&& !xmlsr.isWhiteSpace())
+							unit_measure = xmlsr.getText();
+
+					}
+
+				}
+
+				else if (event == XMLStreamConstants.END_ELEMENT) {
+					if (xmlsr.getLocalName().equals("context")) {
+
+						openTag = "";
+						String q = "UPDATE parsingresults SET context_entity_id = ? , context_start_date = ? , context_end_date = ? ,"
+								+ "context_entity_segmentem = ? WHERE company_reg_id = ? AND context__ref = ?";
+						Connection connection = getConnection();
+						PreparedStatement statement = connection
+								.prepareStatement(q);
+
+						if (context_entity_id.isEmpty())
+							statement.setString(1, null);
+						else
+							statement.setString(1, context_entity_id);
+						if (context_start_date.isEmpty())
+							statement.setString(2, null);
+						else
+							statement.setString(2, context_start_date);
+						if (context_end_date.isEmpty())
+							statement.setString(3, null);
+						else
+							statement.setString(3, context_end_date);
+						if (context_entity_segmentem.isEmpty())
+							statement.setString(4, null);
+						else
+							statement.setString(4, context_entity_segmentem);
+						statement.setString(5, companyString);
+						statement.setString(6, context_id);
+
+						status = statement.executeUpdate();
+						connection.close();
+						context_end_date = "";
+						context_entity_id = "";
+						context_id = "";
+						context_start_date = "";
+						unit_id = "";
+						unit_measure = "";
+						context_entity_segmentem = "";
+
+						//System.out.println("END CONTEXT");
+					} else if (xmlsr.getLocalName().equals("unit")) {
+						openTag = "";
+
+						String q = "UPDATE parsingresults SET unit_measure = ?  WHERE company_reg_id = ? AND unit_ref = ? ";
+						Connection connection = getConnection();
+						PreparedStatement statement = connection
+								.prepareStatement(q);
+
+						if (unit_measure.isEmpty())
+							statement.setString(1, null);
+						else
+							statement.setString(1, unit_measure);
+
+						statement.setString(2, companyString);
+						statement.setString(3, unit_id);
+
+						status = statement.executeUpdate();
+						connection.close();
+						context_end_date = "";
+						context_entity_id = "";
+						context_id = "";
+						context_start_date = "";
+						unit_id = "";
+						unit_measure = "";
+
+						//System.out.println("END UNIT");
+					} else if (xmlsr.getLocalName().equals("entity")) {
+						entityOpen = false;
+					} else if (xmlsr.getLocalName().equals("period"))
+						periodOpen = false;
+					else if (xmlsr.getLocalName().equals("segment")) {
+						segmentOpen = false;
+					}
+				}
+				event = xmlsr.next();
+
+
+			}
+		} catch (XMLStreamException ex) {
+			JOptionPane.showMessageDialog(null, "Can not parse File!");
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		} 
+		return status;
+	}
+
+	public Connection getConnection() {
+		Connection connection = null;
+
+		driver="com.mysql.jdbc.Driver";
+
+		url = "jdbc:mysql://localhost/";
+
+		databaseName = "xbrlparser";
+
+		userName = "root";
+
+		password= "root";
+		try {
+			Class.forName(driver).newInstance();
+			connection = DriverManager
+					.getConnection(url+databaseName+ "?"
+							+ "user="+userName+"&password="+password);
+			return connection;
+		} catch (InstantiationException | IllegalAccessException
+				| ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage());
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, "Can not connect to Database!");
+		}
+		return connection;
+	}
+
+	public boolean isXBRL(String fileName){
+	
+		String x = "xbrl";
+		String extension = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());
+		if(extension.equals(x))
+			return true;
+		
+		return false;
+	}
+	 public static class MyRunnable implements Runnable {
+	        private final String url;
+	        int status;
+	        private String companyRegNo;
+			XBRLPasrer pasrer = new XBRLPasrer();
+	        MyRunnable(String url) {
+	            this.url = url;
+	        }
+	 
+	        @Override
+	        public void run() {
+	 
+	            
+//	            int code = 200;
+	            try {
+					companyRegNo = pasrer.getCompRegNo(dirPath+"/"+url, 2);
+					status = pasrer.parseInsertKeysAndValues(dirPath+"/"+url,
+							companyRegNo, 2);
+					status = pasrer.parseInsertReferences(dirPath+"/"+url, companyRegNo, 2);
+	            } catch (Exception e) {
+
+	            }
+	            //System.out.println(url + "\t\tStatus:" + status);
+	        }
+	    }
+}

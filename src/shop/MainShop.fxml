@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.MainShopController">
+   <children>
+      <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="32.0" prefWidth="1366.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="ملف">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Close Now" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="تعديل">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="مساعدة">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <ToolBar prefHeight="40.0" prefWidth="200.0">
+        <items>
+          <Button mnemonicParsing="false" onAction="#handleButtonAction" text="بيانات الشركة" />
+        </items>
+      </ToolBar>
+      <TabPane fx:id="tabPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="696.0" prefWidth="1366.0" tabClosingPolicy="ALL_TABS">
+        <tabs>
+          <Tab text="Untitled Tab 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="239.0" prefWidth="1366.0" />
+            </content>
+          </Tab>
+          <Tab text="Untitled Tab 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </Tab>
+        </tabs>
+         <VBox.margin>
+            <Insets top="1.0" />
+         </VBox.margin>
+         <opaqueInsets>
+            <Insets top="10.0" />
+         </opaqueInsets>
+      </TabPane>
+   </children>
+</VBox>
