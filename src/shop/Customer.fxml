@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.CustomerController">
+   <children>
+      <SplitPane dividerPositions="0.2894736842105263" nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxWidth="335.0" minHeight="0.0" minWidth="335.0" prefHeight="546.0" prefWidth="335.0" styleClass="rounded">
+               <children>
+                  <TreeView layoutX="26.0" layoutY="20.0" prefHeight="511.0" prefWidth="280.0" />
+               </children></AnchorPane>
+          <AnchorPane maxWidth="952.0" minHeight="0.0" minWidth="555.0" prefHeight="550.0" prefWidth="952.0" styleClass="rounded">
+               <children>
+                  <Accordion layoutX="31.0" layoutY="14.0" prefHeight="257.0" prefWidth="897.0">
+                    <panes>
+                      <TitledPane alignment="BASELINE_RIGHT" prefHeight="255.0" prefWidth="897.0" text="بيانات أساسية" textFill="#028dff">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="812.0" layoutY="148.0" text="عنوان" textAlignment="RIGHT" />
+                                    <Label layoutX="782.0" layoutY="111.0" text="بريد إلكتروني" />
+                                    <TextField layoutX="310.0" layoutY="148.0" prefHeight="55.0" prefWidth="443.0" />
+                                    <TextField layoutX="309.0" layoutY="19.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="809.0" layoutY="68.0" text="تليفون" />
+                                    <Label layoutX="791.0" layoutY="25.0" text="كود العميل" />
+                                    <TextField layoutX="593.0" layoutY="105.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField layoutX="653.0" layoutY="19.0" prefHeight="25.0" prefWidth="100.0" />
+                                    <Line endX="920.0" opacity="0.0" startX="30.0" />
+                                    <TextField layoutX="593.0" layoutY="62.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="519.0" layoutY="25.0" text="الإسم" />
+                                    <TextField layoutX="309.0" layoutY="62.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="506.0" layoutY="68.0" text="تليفون 2" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                      </TitledPane>
+                    </panes>
+                  </Accordion>
+                  <Accordion layoutX="31.0" layoutY="275.0" prefHeight="264.0" prefWidth="897.0">
+                     <panes>
+                        <TitledPane alignment="BASELINE_RIGHT" prefHeight="255.0" prefWidth="897.0" text="بيانات عامة" textFill="#028dff">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="787.0" layoutY="144.0" text="كود المنطقة" textAlignment="RIGHT" />
+                                    <Label layoutX="785.0" layoutY="101.0" text="نسبة الخصم" />
+                                    <TextField layoutX="309.0" layoutY="9.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="773.0" layoutY="58.0" text="رصيد دائن أول" />
+                                    <Label layoutX="763.0" layoutY="15.0" text="الشخص المسؤول" />
+                                    <TextField layoutX="593.0" layoutY="95.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField layoutX="593.0" layoutY="9.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Line endX="920.0" opacity="0.0" startX="30.0" />
+                                    <TextField layoutX="593.0" layoutY="52.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="515.0" layoutY="15.0" text="تليفون" />
+                                    <TextField layoutX="309.0" layoutY="52.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="477.0" layoutY="58.0" text="رصيد مدين أول" />
+                                    <TextField layoutX="310.0" layoutY="95.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="495.0" layoutY="101.0" text="حد الإئتمان" />
+                                    <TextField layoutX="689.0" layoutY="138.0" prefHeight="29.0" prefWidth="64.0" />
+                                    <Label layoutX="495.0" layoutY="144.0" text="حد الإئتمان" />
+                                    <ComboBox layoutX="309.0" layoutY="140.0" prefHeight="29.0" prefWidth="160.0" />
+                                    <TextField layoutX="598.0" layoutY="182.0" prefHeight="29.0" prefWidth="156.0" />
+                                    <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="775.0" layoutY="188.0" text="حسابه الرئيسي" textAlignment="RIGHT" />
+                                    <ComboBox layoutX="594.0" layoutY="138.0" prefHeight="29.0" prefWidth="92.0" />
+                                    <ComboBox layoutX="310.0" layoutY="182.0" prefHeight="29.0" prefWidth="160.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TitledPane>
+                     </panes>
+                  </Accordion>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

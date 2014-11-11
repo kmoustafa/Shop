@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.UnitsController">
+   <children>
+      <SplitPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxWidth="1298.0" minHeight="0.0" minWidth="555.0" prefHeight="550.0" prefWidth="1298.0" styleClass="rounded">
+               <children>
+                  <Label layoutX="1235.0" layoutY="56.0" text="الكود" />
+                  <TextField layoutX="991.0" layoutY="52.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Line endX="920.0" opacity="0.0" startX="30.0" />
+                  <TextField layoutX="991.0" layoutY="92.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Label layoutX="1234.0" layoutY="96.0" text="الإسم" />
+                  <TableView layoutX="690.0" layoutY="142.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="367.0" prefWidth="565.0">
+                    <columns>
+                      <TableColumn prefWidth="143.0" text="الكود" />
+                      <TableColumn prefWidth="421.0" text="الإسم" />
+                    </columns>
+                  </TableView>
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

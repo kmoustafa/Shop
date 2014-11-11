@@ -15,14 +15,14 @@ import java.util.logging.Logger;
  *
  * @author Kareem.Moustafa
  */
-public class DBHandler {
+public class DBHandler  {
 
     private DBHandler() {
         try {
             Class.forName(DRIVERCLASS);
             this.dbURL = "jdbc:oracle:thin:@localhost:1521:XE";
-            this.dbPassword = "sys";
-            this.dbUserName = "SYSTEM";
+            this.dbPassword = "shop";
+            this.dbUserName = "SHOPWS";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,6 +45,7 @@ public class DBHandler {
         return instance.createConnection();
 
     }
+
 
     private static DBHandler instance = new DBHandler();
     private String dbUserName;
