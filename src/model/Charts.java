@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -23,6 +23,7 @@ public class Charts  implements java.io.Serializable {
      private Double openDebit;
      private Double openCredt;
      private BigDecimal viewMode;
+     private String accName;
      private Set employeeses = new HashSet(0);
      private Set bankses = new HashSet(0);
      private Set transactionDetailses = new HashSet(0);
@@ -36,7 +37,7 @@ public class Charts  implements java.io.Serializable {
     public Charts(BigDecimal accId) {
         this.accId = accId;
     }
-    public Charts(BigDecimal accId, Users users, CostCenter costCenter, BigDecimal isTarget, String target, BigDecimal debitOCredit, BigDecimal reportType, BigDecimal rankAccount, Double openDebit, Double openCredt, BigDecimal viewMode, Set employeeses, Set bankses, Set transactionDetailses, Set personses, Set expenceses) {
+    public Charts(BigDecimal accId, Users users, CostCenter costCenter, BigDecimal isTarget, String target, BigDecimal debitOCredit, BigDecimal reportType, BigDecimal rankAccount, Double openDebit, Double openCredt, BigDecimal viewMode, String accName, Set employeeses, Set bankses, Set transactionDetailses, Set personses, Set expenceses) {
        this.accId = accId;
        this.users = users;
        this.costCenter = costCenter;
@@ -48,6 +49,7 @@ public class Charts  implements java.io.Serializable {
        this.openDebit = openDebit;
        this.openCredt = openCredt;
        this.viewMode = viewMode;
+       this.accName = accName;
        this.employeeses = employeeses;
        this.bankses = bankses;
        this.transactionDetailses = transactionDetailses;
@@ -131,6 +133,13 @@ public class Charts  implements java.io.Serializable {
     
     public void setViewMode(BigDecimal viewMode) {
         this.viewMode = viewMode;
+    }
+    public String getAccName() {
+        return this.accName;
+    }
+    
+    public void setAccName(String accName) {
+        this.accName = accName;
     }
     public Set getEmployeeses() {
         return this.employeeses;

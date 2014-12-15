@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -29,6 +29,7 @@ public class Persons  implements java.io.Serializable {
      private String contactName;
      private String contactPhone;
      private BigDecimal transType;
+     private String pesronEmail;
      private Set transactionses = new HashSet(0);
      private Set portfolios = new HashSet(0);
      private Set itemses = new HashSet(0);
@@ -40,7 +41,7 @@ public class Persons  implements java.io.Serializable {
     public Persons(PersonsId id) {
         this.id = id;
     }
-    public Persons(PersonsId id, Users users, Zone zone, Department department, Charts charts, String personName, String companyName, String personPhone, String personPhone2, String personAddress, String notes, Double openDebit, Double openCredit, Double maxBalance, String contactName, String contactPhone, BigDecimal transType, Set transactionses, Set portfolios, Set itemses) {
+    public Persons(PersonsId id, Users users, Zone zone, Department department, Charts charts, String personName, String companyName, String personPhone, String personPhone2, String personAddress, String notes, Double openDebit, Double openCredit, Double maxBalance, String contactName, String contactPhone, BigDecimal transType, String pesronEmail, Set transactionses, Set portfolios, Set itemses) {
        this.id = id;
        this.users = users;
        this.zone = zone;
@@ -58,6 +59,7 @@ public class Persons  implements java.io.Serializable {
        this.contactName = contactName;
        this.contactPhone = contactPhone;
        this.transType = transType;
+       this.pesronEmail = pesronEmail;
        this.transactionses = transactionses;
        this.portfolios = portfolios;
        this.itemses = itemses;
@@ -181,6 +183,13 @@ public class Persons  implements java.io.Serializable {
     
     public void setTransType(BigDecimal transType) {
         this.transType = transType;
+    }
+    public String getPesronEmail() {
+        return this.pesronEmail;
+    }
+    
+    public void setPesronEmail(String pesronEmail) {
+        this.pesronEmail = pesronEmail;
     }
     public Set getTransactionses() {
         return this.transactionses;

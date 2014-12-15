@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.ItemsController">
+   <children>
+      <SplitPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxWidth="1293.0" minHeight="0.0" minWidth="555.0" prefHeight="550.0" prefWidth="1293.0" styleClass="rounded">
+               <children>
+                  <Accordion layoutX="31.0" layoutY="49.0" prefHeight="486.0" prefWidth="1232.0">
+                    <panes>
+                        <TitledPane alignment="BASELINE_RIGHT" prefHeight="365.0" prefWidth="1247.0" text="بيانات رئيسية" textFill="#028dff" wrapText="true">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="1166.0" layoutY="80.0" text="المجموعة" />
+                                    <Label layoutX="723.0" layoutY="38.0" text="القسم" />
+                                    <Label layoutX="1161.0" layoutY="36.0" text="إسم المورد" />
+                                    <TextField layoutX="943.0" layoutY="74.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField layoutX="943.0" layoutY="30.0" prefHeight="29.0" prefWidth="160.0" />
+                                    <Line endX="920.0" opacity="0.0" startX="30.0" />
+                                    <TextField layoutX="473.0" layoutY="32.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <ComboBox layoutX="776.0" layoutY="30.0" prefWidth="150.0" />
+                                    <ComboBox layoutX="306.0" layoutY="33.0" prefWidth="150.0" />
+                                    <ComboBox layoutX="776.0" layoutY="75.0" prefWidth="150.0" />
+                                    <ComboBox layoutX="306.0" layoutY="79.0" prefWidth="150.0" />
+                                    <TextField layoutX="473.0" layoutY="77.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="724.0" layoutY="83.0" text="النوع" />
+                                    <Label layoutX="1179.0" layoutY="127.0" text="الوحدة" />
+                                    <TextField layoutX="943.0" layoutY="120.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <ComboBox layoutX="776.0" layoutY="120.0" prefWidth="150.0" />
+                                    <ComboBox layoutX="306.0" layoutY="124.0" prefWidth="150.0" />
+                                    <TextField layoutX="473.0" layoutY="122.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="686.0" layoutY="128.0" text="حسابه الرئيسي" />
+                                    <Label layoutX="1175.0" layoutY="167.0" text="التسعير" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="100.0" layoutX="298.0" layoutY="196.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="923.0" />
+                                    <TextField layoutX="933.0" layoutY="213.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="1180.0" layoutY="220.0" text="التكلفة" />
+                                    <Label layoutX="1156.0" layoutY="260.0" text="سعر البيع 1" />
+                                    <TextField layoutX="933.0" layoutY="253.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField layoutX="623.0" layoutY="253.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="846.0" layoutY="260.0" text="سعر البيع 2" />
+                                    <Label layoutX="852.0" layoutY="220.0" text="نسبة الربح" />
+                                    <TextField layoutX="623.0" layoutY="213.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField layoutX="313.0" layoutY="253.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Label layoutX="535.0" layoutY="260.0" text="سعر البيع 3" />
+                                    <Label layoutX="546.0" layoutY="220.0" text="حد الطلب" />
+                                    <TextField layoutX="313.0" layoutY="213.0" prefHeight="25.0" prefWidth="160.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="116.0" layoutX="28.0" layoutY="34.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="229.0" />
+                                    <RadioButton layoutX="170.0" layoutY="82.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="خدمة" />
+                                    <RadioButton layoutX="161.0" layoutY="48.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="مخزون" />
+                                    <RadioButton layoutX="158.0" layoutY="115.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="مصفوفة" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="103.0" layoutX="24.0" layoutY="196.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="237.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TitledPane>
+                      <TitledPane alignment="BASELINE_RIGHT" prefHeight="255.0" prefWidth="897.0" text="مصفوفة الأصناف" textFill="#028dff">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="900.0" layoutY="15.0" text="تعريف المصفوفة">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font></Label>
+                                    <Line endX="920.0" opacity="0.0" startX="30.0" />
+                                    <Label layoutX="296.0" layoutY="15.0" text="ناتج المصفوفة">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="267.0" layoutX="660.0" layoutY="51.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="558.0" />
+                                    <TableView layoutX="13.0" layoutY="49.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="270.0" prefWidth="626.0">
+                                      <columns>
+                                        <TableColumn prefWidth="36.0" text="م" />
+                                        <TableColumn prefWidth="114.0" text="كود" />
+                                          <TableColumn prefWidth="256.0" text="الإسم" />
+                                          <TableColumn prefWidth="110.0" text="لون" />
+                                          <TableColumn prefWidth="109.0" text="مقاس" />
+                                      </columns>
+                                    </TableView>
+                                    <TableView layoutX="959.0" layoutY="83.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="217.0" prefWidth="220.0">
+                                       <columns>
+                                          <TableColumn prefWidth="48.0" text="كود" />
+                                          <TableColumn prefWidth="132.0" text="الإسم" />
+                                          <TableColumn prefWidth="39.0" />
+                                       </columns>
+                                    </TableView>
+                                    <TableView layoutX="699.0" layoutY="83.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="217.0" prefWidth="220.0">
+                                       <columns>
+                                          <TableColumn prefWidth="48.0" text="كود" />
+                                          <TableColumn prefWidth="132.0" text="الإسم" />
+                                          <TableColumn prefWidth="39.0" />
+                                       </columns>
+                                    </TableView>
+                                    <Label layoutX="1056.0" layoutY="57.0" text="اللون" />
+                                    <Label layoutX="795.0" layoutY="57.0" text="المقاس" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                      </TitledPane>
+                        <TitledPane alignment="BASELINE_RIGHT" prefHeight="255.0" prefWidth="897.0" text="أسعار الصنف" textFill="#028dff">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView layoutX="12.0" layoutY="10.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="305.0" prefWidth="1207.0">
+                                      <columns>
+                                        <TableColumn prefWidth="113.0" text="الكود" />
+                                        <TableColumn prefWidth="152.0" text="سعر الشراء" />
+                                          <TableColumn minWidth="1.0" prefWidth="110.0" text="بيع 1" />
+                                          <TableColumn prefWidth="110.0" text="بيع 2" />
+                                          <TableColumn prefWidth="110.0" text="بيع 3" />
+                                          <TableColumn prefWidth="157.0" text="حد الطلب" />
+                                          <TableColumn prefWidth="120.0" text="مقاس" />
+                                          <TableColumn prefWidth="120.0" text="لون" />
+                                          <TableColumn prefWidth="214.0" />
+                                      </columns>
+                                    </TableView>
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TitledPane>
+                        <TitledPane alignment="BASELINE_RIGHT" prefHeight="255.0" prefWidth="897.0" text="الصورة" textFill="#028dff">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <Label layoutX="1155.0" layoutY="26.0" text="اختر صورة" />
+                                    <TextField layoutX="576.0" layoutY="21.0" prefHeight="29.0" prefWidth="477.0" />
+                                    <Button layoutX="1089.0" layoutY="19.0" mnemonicParsing="false" prefHeight="33.0" prefWidth="37.0" text="Button" />
+                                    <ImageView fitHeight="248.0" fitWidth="702.0" layoutX="264.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </TitledPane>
+                    </panes>
+                  </Accordion>
+                  <TextField layoutX="1085.0" layoutY="13.0" prefHeight="25.0" prefWidth="100.0" />
+                  <Label layoutX="1248.0" layoutY="17.0" text="كود" />
+                  <Label layoutX="968.0" layoutY="17.0" text="إسم الصنف" />
+                  <TextField layoutX="745.0" layoutY="13.0" prefHeight="25.0" prefWidth="160.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

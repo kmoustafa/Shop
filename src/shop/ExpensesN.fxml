@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.ExpensesNController">
+   <children>
+      <SplitPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxWidth="1304.0" minHeight="0.0" minWidth="555.0" prefHeight="550.0" prefWidth="1304.0" styleClass="rounded">
+               <children>
+                  <Label layoutX="1203.0" layoutY="27.0" text="رقم الحركة" />
+                  <TextField layoutX="977.0" layoutY="23.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Line endX="920.0" layoutX="326.0" layoutY="-29.0" opacity="0.0" startX="30.0" />
+                  <TextField layoutX="977.0" layoutY="63.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Label layoutX="1203.0" layoutY="67.0" text="رقم المستند" />
+                  <Label layoutX="1195.0" layoutY="147.0" text="الطرف الدائن" />
+                  <TextField layoutX="977.0" layoutY="143.0" prefHeight="25.0" prefWidth="160.0" />
+                  <ComboBox layoutX="594.0" layoutY="143.0" prefHeight="25.0" prefWidth="291.0" />
+                  <ComboBox layoutX="594.0" layoutY="63.0" prefHeight="25.0" prefWidth="174.0" />
+                  <Label layoutX="852.0" layoutY="67.0" text="الموظف" />
+                  <TextField layoutX="39.0" layoutY="44.0" prefHeight="108.0" prefWidth="310.0" />
+                  <Label layoutX="312.0" layoutY="20.0" text="ملاحظات" />
+                  <Label layoutX="857.0" layoutY="27.0" text="التاريخ" />
+                  <DatePicker layoutX="595.0" layoutY="23.0" />
+                  <Label layoutX="608.0" layoutY="437.0" text="إجمالي مدين" />
+                  <TextField layoutX="400.0" layoutY="433.0" prefHeight="25.0" prefWidth="160.0" />
+                  <TableView layoutX="399.0" layoutY="184.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="223.0" prefWidth="846.0">
+                    <columns>
+                      <TableColumn prefWidth="33.0" text="م" />
+                      <TableColumn prefWidth="117.0" text="رقم الحساب" />
+                        <TableColumn prefWidth="229.0" text="إسم الحساب" />
+                        <TableColumn prefWidth="270.0" text="بيان" />
+                        <TableColumn prefWidth="150.0" text="مدين" />
+                    </columns>
+                  </TableView>
+                  <Label layoutX="1205.0" layoutY="107.0" text="اصرفوا لـ" />
+                  <TextField layoutX="596.0" layoutY="103.0" prefHeight="25.0" prefWidth="541.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

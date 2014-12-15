@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -24,6 +24,7 @@ public class Banks  implements java.io.Serializable {
      private Double openDebit;
      private Double openCredit;
      private String bankIdNumber;
+     private String accType;
      private Set transactionses = new HashSet(0);
 
     public Banks() {
@@ -33,7 +34,7 @@ public class Banks  implements java.io.Serializable {
     public Banks(BigDecimal bankId) {
         this.bankId = bankId;
     }
-    public Banks(BigDecimal bankId, Users users, Charts charts, String bankName, String bankBranch, String bankAddress, String bankPhone, String bankFax, String bankEmail, Double openDebit, Double openCredit, String bankIdNumber, Set transactionses) {
+    public Banks(BigDecimal bankId, Users users, Charts charts, String bankName, String bankBranch, String bankAddress, String bankPhone, String bankFax, String bankEmail, Double openDebit, Double openCredit, String bankIdNumber, String accType, Set transactionses) {
        this.bankId = bankId;
        this.users = users;
        this.charts = charts;
@@ -46,6 +47,7 @@ public class Banks  implements java.io.Serializable {
        this.openDebit = openDebit;
        this.openCredit = openCredit;
        this.bankIdNumber = bankIdNumber;
+       this.accType = accType;
        this.transactionses = transactionses;
     }
    
@@ -132,6 +134,13 @@ public class Banks  implements java.io.Serializable {
     
     public void setBankIdNumber(String bankIdNumber) {
         this.bankIdNumber = bankIdNumber;
+    }
+    public String getAccType() {
+        return this.accType;
+    }
+    
+    public void setAccType(String accType) {
+        this.accType = accType;
     }
     public Set getTransactionses() {
         return this.transactionses;

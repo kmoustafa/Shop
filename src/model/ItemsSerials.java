@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -24,6 +24,7 @@ public class ItemsSerials  implements java.io.Serializable {
      private BigDecimal requirQty;
      private Double percentage;
      private Set transactionDetailses = new HashSet(0);
+     private String barCode;
 
     public ItemsSerials() {
     }
@@ -32,7 +33,7 @@ public class ItemsSerials  implements java.io.Serializable {
     public ItemsSerials(BigDecimal itemDId) {
         this.itemDId = itemDId;
     }
-    public ItemsSerials(BigDecimal itemDId, Sizes sizes, Colors colors, Items items, Double cost, Double stCost, Double sales1, Double sales2, Double sales3, BigDecimal requirQty, Double percentage, Set transactionDetailses) {
+    public ItemsSerials(BigDecimal itemDId, Sizes sizes, Colors colors, Items items, Double cost, Double stCost, Double sales1, Double sales2, Double sales3, BigDecimal requirQty, Double percentage, Set transactionDetailses, String barCode) {
        this.itemDId = itemDId;
        this.sizes = sizes;
        this.colors = colors;
@@ -45,6 +46,7 @@ public class ItemsSerials  implements java.io.Serializable {
        this.requirQty = requirQty;
        this.percentage = percentage;
        this.transactionDetailses = transactionDetailses;
+       this.barCode = barCode;
     }
    
     public BigDecimal getItemDId() {
@@ -131,7 +133,13 @@ public class ItemsSerials  implements java.io.Serializable {
     public void setTransactionDetailses(Set transactionDetailses) {
         this.transactionDetailses = transactionDetailses;
     }
-
+    public String getBarCode() {
+        return this.barCode;
+    }
+    
+    public void setBarCode(String barCode) {
+        this.barCode = barCode;
+    }
 
 
 

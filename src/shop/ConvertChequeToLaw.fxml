@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.ConvertChequeToLawController">
+   <children>
+      <SplitPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxWidth="1304.0" minHeight="0.0" minWidth="555.0" prefHeight="550.0" prefWidth="1304.0" styleClass="rounded">
+               <children>
+                  <Label layoutX="1207.0" layoutY="27.0" text="رقم الأذن" />
+                  <TextField layoutX="977.0" layoutY="23.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Line endX="920.0" layoutX="326.0" layoutY="-29.0" opacity="0.0" startX="30.0" />
+                  <Label layoutX="1206.0" layoutY="67.0" text="كود البنك" />
+                  <Label layoutX="846.0" layoutY="67.0" text="إسم البنك" />
+                  <ComboBox layoutX="977.0" layoutY="63.0" prefHeight="25.0" prefWidth="160.0" />
+                  <TextField layoutX="39.0" layoutY="44.0" prefHeight="108.0" prefWidth="310.0" />
+                  <Label layoutX="312.0" layoutY="20.0" text="ملاحظات" />
+                  <Label layoutX="839.0" layoutY="27.0" text="تاريخ الأذن" />
+                  <DatePicker layoutX="595.0" layoutY="23.0" />
+                  <Label layoutX="300.0" layoutY="437.0" text="الإجمالي" />
+                  <TextField layoutX="70.0" layoutY="433.0" prefHeight="25.0" prefWidth="160.0" />
+                  <TableView layoutX="69.0" layoutY="184.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="223.0" prefWidth="1194.0">
+                    <columns>
+                      <TableColumn prefWidth="33.0" text="م" />
+                      <TableColumn prefWidth="150.0" text="القيمة" />
+                        <TableColumn prefWidth="150.0" text="تاريخ الإستحقاق" />
+                        <TableColumn prefWidth="150.0" text="المسحوب عليه" />
+                        <TableColumn prefWidth="150.0" text="إسم العميل" />
+                        <TableColumn prefWidth="50.0" text="محول" />
+                        <TableColumn prefWidth="150.0" text="رقم الورقة" />
+                        <TableColumn prefWidth="150.0" text="إسم البنك" />
+                        <TableColumn prefWidth="150.0" text="رقم الشيك" />
+                    </columns>
+                  </TableView>
+                  <TextField layoutX="608.0" layoutY="63.0" prefHeight="25.0" prefWidth="160.0" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

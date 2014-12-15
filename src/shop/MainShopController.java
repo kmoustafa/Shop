@@ -84,6 +84,9 @@ public class MainShopController implements Initializable {
             tab = new Tab("البنوك");
             tab.setContent(FXMLLoader.load(this.getClass().getResource("Banks.fxml")));
             this.tabPane.getTabs().add(tab); 
+            tab = new Tab("الكاشير");
+            tab.setContent(FXMLLoader.load(this.getClass().getResource("Cashier.fxml")));
+            this.tabPane.getTabs().add(tab); 
             //tabPane.getSelectionModel().select(tab);
         } catch (IOException ex) {
             Logger.getLogger(MainShopController.class.getName()).log(Level.SEVERE, null, ex);

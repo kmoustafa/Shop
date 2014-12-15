@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ public class Stores  implements java.io.Serializable {
      private String storeName;
      private String storeAddress;
      private String storePhone;
-     private String storeContact;
+     private BigDecimal isMain;
      private Set transactionses = new HashSet(0);
 
     public Stores() {
@@ -28,14 +28,14 @@ public class Stores  implements java.io.Serializable {
     public Stores(BigDecimal storeId) {
         this.storeId = storeId;
     }
-    public Stores(BigDecimal storeId, Users users, Employees employees, String storeName, String storeAddress, String storePhone, String storeContact, Set transactionses) {
+    public Stores(BigDecimal storeId, Users users, Employees employees, String storeName, String storeAddress, String storePhone, BigDecimal isMain, Set transactionses) {
        this.storeId = storeId;
        this.users = users;
        this.employees = employees;
        this.storeName = storeName;
        this.storeAddress = storeAddress;
        this.storePhone = storePhone;
-       this.storeContact = storeContact;
+       this.isMain = isMain;
        this.transactionses = transactionses;
     }
    
@@ -81,12 +81,12 @@ public class Stores  implements java.io.Serializable {
     public void setStorePhone(String storePhone) {
         this.storePhone = storePhone;
     }
-    public String getStoreContact() {
-        return this.storeContact;
+    public BigDecimal getIsMain() {
+        return this.isMain;
     }
     
-    public void setStoreContact(String storeContact) {
-        this.storeContact = storeContact;
+    public void setIsMain(BigDecimal isMain) {
+        this.isMain = isMain;
     }
     public Set getTransactionses() {
         return this.transactionses;

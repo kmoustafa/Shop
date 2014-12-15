@@ -1151,68 +1151,64 @@
 
 //tab
 .tab-pane .tab-header-area .tab-header-background {
--fx-background-color: #ffffff; 
+/*-fx-background-color: ; */
+
 }
 
 .tab-pane
 {
-    -fx-tab-min-width:100px;
+    -fx-tab-min-width:120px;
+    
 }
 
 
-.tab-pane .tab
+/*.tab-pane .tab
 {
 -fx-background-color: #f2f2f2;
 
     -fx-background-radius: 5,4,3,5;
     -fx-background-insets: 0,1,2,0;
-}
+    -fx-spacing: 10;
+}*/
 
 .tab-pane .tab:selected
 {
+-fx-font-size: 14px;
+-fx-text-fill: #00a2ff;
 
-/*    -fx-background-color: #828282;*/
-    -fx-background-color: 
-        linear-gradient(#f2f2f2, #d6d6d6),
-        linear-gradient(#fcfcfc 0%, #d9d9d9 20%, #d6d6d6 100%),
-        linear-gradient(#dddddd 0%, #f6f6f6 50%);
-    -fx-background-radius: 8,7,6;
-    -fx-background-insets: 0,1,2;
-    -fx-text-fill: black;
-    -fx-padding: 10px 15px 10px 15px;
-
-}
+} 
 
 .tab .tab-label { 
     -fx-alignment: CENTER;
-    -fx-font-size: 12px;
- 
+    
+   
+    
 }
 
 .tab:selected .tab-label { 
     
     -fx-alignment: CENTER;
        -fx-effect: dropshadow( two-pass-box , rgba(0,0,0,0.4) , 1, 0.0 , 0 , 0 );
-       -fx-text-fill: #666666;
-          -fx-font-weight: bold;
+       -fx-text-fill: #00a2ff;
+          -fx-font-weight: 200;
   
 }
-
+/*
 ///////////////////
 
 .tab *.tab-label Text {
     
 -fx-effect: dropshadow(two-pass-box , rgba(255, 255, 255, 0.4), 1, 0.0 , 0, 1);
 }
-
-.tab-content-area 
+*/
+/*.tab-content-area 
 {
 -fx-background-color: #f2f2f2;
--fx-padding: 0.0em;   
+-fx-padding: 10px 10 10 10;   
  -fx-opacity: -fx-disabled-opacity;
-}
+}*/
 
-.tab 
+/*.tab 
 {
  //This is how it is done in Button, but the -1 inset caused a white line  
  //to appear beneath the tab, which looks bad, so it's taken out below.    
@@ -1224,7 +1220,7 @@
 -fx-padding: 0.083333em 0.5em 0.083333em 0.5em; 
     -fx-text-fill: -fx-text-base-color;
       
-}
+}*/
 /*
 .tab:top 
 {
@@ -1242,14 +1238,14 @@
 {
 -fx-background-color: -fx-tab-border-color, -fx-inner-border, -fx-body-color;
 }
-*/
+
 
 .tab:hover 
 {     
 -fx-color: -fx-hover-base;
 }
-/*
-.tab:selected 
+*/
+/*.tab:selected 
 {
     -fx-background-color: white;
     -fx-background-color: -fx-tab-border-color, -fx-inner-border, -fx-body-color;
@@ -1258,32 +1254,33 @@
 -fx-background-color: -fx-tab-border-color, -fx-control-inner-background;
 -fx-background-insets: 0, 1 1 0 1;
 -fx-background-radius: 5 5 0 0, 4 4 0 0;
-}
-
+}*/
+/*
 
 .tab:disabled 
 {
 -fx-opacity: -fx-disabled-opacity;
 }
-*/
+
 
 .tab:disabled:hover 
 {
 -fx-color: -fx-base;
 -fx-opacity: -fx-disabled-opacity;
 }
-
+*/
 .tab-pane *.tab-header-background 
 {
--fx-background-color: -fx-outer-border, -fx-inner-border, derive(-fx-color, -20%);
--fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);
+    
+/*-fx-background-color: -fx-outer-border, -fx-inner-border, derive(-fx-color, -20%);
+-fx-effect: innershadow(two-pass-box , rgba(0,0,0,0.6) , 4, 0.0 , 0 , 0);*/
 }
 
-.tab-pane *.tab-header-area {
+/*.tab-pane *.tab-header-area {
  //I would like to use -fx-tab-border-color here, but for some reason it 
  //just isn't the correct color, even though it works in :top above 
     -fx-background-color: -fx-tab-border-color, lightgray;
-}
+}*/
 /*
 .tab-pane:top *.tab-header-area 
 {
@@ -1305,13 +1302,14 @@
 -fx-background-insets: 0, 0 0 0 1;
 -fx-padding: 0.833em 0.416667em 0.166667em 0.0em;  10 5 2 0 
 }
-*/
 
+*/
 .tab-pane .headers-region 
 {
+    -fx-padding:10px 10px 0 10;
 -fx-effect: dropshadow(two-pass-box , rgba(0,0,0,0.4) ,4 , 0 , 0, 0);
 }
-
+/*
 // TODO: scaling the shape seems to make it way too large 
 .tab-close-button 
 {
@@ -1334,10 +1332,10 @@
 -fx-background-insets: 0, 1, 2;
 -fx-background-radius: 5 5 0 0, 4 4 0 0, 3 3 0 0;
 -fx-padding: 0.083333em 0.25em 0.083333em 0.25em; 
-}
-.tab:focused .tab:selected{
-     -fx-background-color: red;
-}
+}*/
+/*.tab:focused .tab:selected{
+     -fx-background-color: RED;
+}*/
 /*
 .tab-down-button 
 {
@@ -1370,7 +1368,7 @@
 -fx-background-color: null;
    -fx-border-color: red; 
 }*/
-
+/*
 .tab-pane.floating *.tab-content-area 
 {
        
@@ -1393,7 +1391,7 @@
 -fx-background-color: -fx-tab-border-color, -fx-control-inner-background;
 -fx-background-insets: 0 0 -1 0, 1 1 -1 1;
 -fx-background-radius: 5 5 0 0, 4 4 0 0;
-}
+}*/
 
 /*.tab-pane:floating *.control-buttons-tab 
 {

@@ -7,5 +7,31 @@
     <property name="hibernate.connection.url">jdbc:oracle:thin:@localhost:1521:XE</property>
     <property name="hibernate.connection.username">SYSTEM</property>
     <property name="hibernate.connection.password">sys</property>
+    <mapping resource="model/Expences.hbm.xml"/>
+    <mapping resource="model/Function.hbm.xml"/>
+    <mapping resource="model/Banks.hbm.xml"/>
+    <mapping resource="model/RoleFunction.hbm.xml"/>
+    <mapping resource="model/Colors.hbm.xml"/>
+    <mapping resource="model/Charts.hbm.xml"/>
+    <mapping resource="model/Transactions.hbm.xml"/>
+    <mapping resource="model/CostCenter.hbm.xml"/>
+    <mapping resource="model/Stores.hbm.xml"/>
+    <mapping resource="model/Units.hbm.xml"/>
+    <mapping resource="model/TransactionDetails.hbm.xml"/>
+    <mapping resource="model/Users.hbm.xml"/>
+    <mapping resource="model/Department.hbm.xml"/>
+    <mapping resource="model/Persons.hbm.xml"/>
+    <mapping resource="model/Portfolio.hbm.xml"/>
+    <mapping resource="model/Zone.hbm.xml"/>
+    <mapping resource="model/ItemsSerials.hbm.xml"/>
+    <mapping resource="model/PortfolioDetails.hbm.xml"/>
+    <mapping resource="model/Role.hbm.xml"/>
+    <mapping resource="model/Items.hbm.xml"/>
+    <mapping resource="model/Companyinfo.hbm.xml"/>
+    <mapping resource="model/Sizes.hbm.xml"/>
+    <mapping resource="model/Groups.hbm.xml"/>
+    <mapping resource="model/Employees.hbm.xml"/>
+    <mapping resource="model/Types.hbm.xml"/>
+    <mapping resource="model/Sections.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

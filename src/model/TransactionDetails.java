@@ -1,5 +1,5 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
@@ -26,7 +26,9 @@ public class TransactionDetails  implements java.io.Serializable {
      private String transDetWsid;
      private String transDetNotes;
      private Date transDetDate;
-
+     private Double accDr;
+     private Double accCr;
+     
     public TransactionDetails() {
     }
 
@@ -158,7 +160,23 @@ public class TransactionDetails  implements java.io.Serializable {
         this.transDetDate = transDetDate;
     }
 
+    public Double getAccDr() {
+        return accDr;
+    }
 
+    public void setAccDr(Double accDr) {
+        this.accDr = accDr;
+    }
+
+    public Double getAccCr() {
+        return accCr;
+    }
+
+    public void setAccCr(Double accCr) {
+        this.accCr = accCr;
+    }
+
+    
 
 
 }

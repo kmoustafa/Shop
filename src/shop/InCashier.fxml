@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.shape.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.InCashierController">
+   <children>
+      <SplitPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxWidth="1304.0" minHeight="0.0" minWidth="555.0" prefHeight="550.0" prefWidth="1304.0" styleClass="rounded">
+               <children>
+                  <Label layoutX="1201.0" layoutY="27.0" text="رقم الفاتورة" />
+                  <TextField layoutX="977.0" layoutY="23.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Line endX="920.0" layoutX="326.0" layoutY="-29.0" opacity="0.0" startX="30.0" />
+                  <ComboBox layoutX="977.0" layoutY="63.0" prefHeight="25.0" prefWidth="74.0" />
+                  <TextField layoutX="1062.0" layoutY="63.0" prefHeight="25.0" prefWidth="74.0" />
+                  <Label layoutX="1201.0" layoutY="67.0" text="رقم المخزن" />
+                  <Label layoutX="1198.0" layoutY="107.0" text="رقم الموظف" />
+                  <TextField layoutX="1062.0" layoutY="103.0" prefHeight="25.0" prefWidth="74.0" />
+                  <ComboBox layoutX="977.0" layoutY="103.0" prefHeight="25.0" prefWidth="74.0" />
+                  <TextField layoutX="57.0" layoutY="23.0" prefHeight="108.0" prefWidth="310.0" />
+                  <Label layoutX="431.0" layoutY="27.0" text="ملاحظات" />
+                  <Label layoutX="857.0" layoutY="27.0" text="التاريخ" />
+                  <DatePicker layoutX="595.0" layoutY="23.0" />
+                  <ComboBox layoutX="613.0" layoutY="473.0" prefHeight="25.0" prefWidth="74.0" />
+                  <TextField layoutX="698.0" layoutY="473.0" prefHeight="25.0" prefWidth="74.0" />
+                  <Label layoutX="840.0" layoutY="397.0" text="قيمة نقدية" />
+                  <TextField layoutX="612.0" layoutY="393.0" prefHeight="25.0" prefWidth="160.0" />
+                  <TextField layoutX="202.0" layoutY="393.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Label layoutX="433.0" layoutY="397.0" text="الإجمالي" />
+                  <Label layoutX="443.0" layoutY="437.0" text="خصم" />
+                  <TextField layoutX="313.0" layoutY="433.0" prefHeight="25.0" prefWidth="49.0" />
+                  <TextField layoutX="202.0" layoutY="473.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Label layoutX="407.0" layoutY="477.0" text="إجمالي الخصم" />
+                  <Label layoutX="410.0" layoutY="517.0" text="صافي الفاتورة" />
+                  <TextField layoutX="202.0" layoutY="513.0" prefHeight="25.0" prefWidth="160.0" />
+                  <TextField layoutX="203.0" layoutY="433.0" prefHeight="25.0" prefWidth="89.0" />
+                  <Label layoutX="298.0" layoutY="437.0" text="\%" />
+                  <TableView layoutX="15.0" layoutY="144.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="223.0" prefWidth="1265.0">
+                    <columns>
+                      <TableColumn prefWidth="33.0" text="م" />
+                      <TableColumn prefWidth="100.0" text="الكود" />
+                        <TableColumn prefWidth="125.0" text="الباركود" />
+                        <TableColumn prefWidth="150.0" text="إسم الصنف" />
+                        <TableColumn prefWidth="75.0" text="مقاس" />
+                        <TableColumn prefWidth="75.0" text="لون" />
+                        <TableColumn prefWidth="100.0" text="كمية" />
+                        <TableColumn prefWidth="100.0" text="سعر بيع" />
+                        <TableColumn prefWidth="100.0" text="ن خصم" />
+                        <TableColumn prefWidth="100.0" text="ق خصم" />
+                        <TableColumn prefWidth="125.0" text="إجمالي" />
+                        <TableColumn prefWidth="125.0" text="رصيد" />
+                    </columns>
+                  </TableView>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="64.0" layoutX="509.0" layoutY="65.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="287.0" />
+                  <Label layoutX="842.0" layoutY="67.0" text="كيفية الدفع" />
+                  <RadioButton layoutX="649.0" layoutY="89.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="فيزا" />
+                  <RadioButton layoutX="741.0" layoutY="89.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="نقدي" />
+                  <RadioButton layoutX="559.0" layoutY="89.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="معاً" />
+                  <TextField layoutX="612.0" layoutY="433.0" prefHeight="25.0" prefWidth="160.0" />
+                  <Label layoutX="840.0" layoutY="437.0" text="قيمة الفيزا" />
+                  <Label layoutX="826.0" layoutY="477.0" text="حساب السداد" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

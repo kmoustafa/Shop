@@ -1,8 +1,9 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,8 @@ public class Employees  implements java.io.Serializable {
      private Double commision;
      private Set transactionses = new HashSet(0);
      private Set storeses = new HashSet(0);
+     private String info;
+     private Date hireDate;
 
     public Employees() {
     }
@@ -30,7 +33,8 @@ public class Employees  implements java.io.Serializable {
     public Employees(BigDecimal empId) {
         this.empId = empId;
     }
-    public Employees(BigDecimal empId, Users users, Charts charts, String empName, String empPhone, String empPhone2, Double salary, Double commision, Set transactionses, Set storeses) {
+    public Employees(BigDecimal empId, Users users, Charts charts, String empName, String empPhone, String empPhone2, Double salary, Double commision,
+            Set transactionses, Set storeses, String info, Date hireDate) {
        this.empId = empId;
        this.users = users;
        this.charts = charts;
@@ -41,6 +45,8 @@ public class Employees  implements java.io.Serializable {
        this.commision = commision;
        this.transactionses = transactionses;
        this.storeses = storeses;
+       this.info = info;
+       this.hireDate = hireDate;
     }
    
     public BigDecimal getEmpId() {
@@ -114,7 +120,23 @@ public class Employees  implements java.io.Serializable {
         this.storeses = storeses;
     }
 
+    public String getInfo() {
+        return info;
+    }
 
+    public void setInfo(String info) {
+        this.info = info;
+    }
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    
 
 
 }

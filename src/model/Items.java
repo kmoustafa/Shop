@@ -1,8 +1,9 @@
 package model;
-// Generated Oct 24, 2014 1:11:37 AM by Hibernate Tools 3.6.0
+// Generated Nov 14, 2014 12:02:34 AM by Hibernate Tools 3.6.0
 
 
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -21,9 +22,9 @@ public class Items  implements java.io.Serializable {
      private Units units;
      private String itemName;
      private String itemNotes;
-     private String barCode;
+     private Blob itemPic;
      private Set itemsSerialses = new HashSet(0);
-
+     private BigDecimal productType;
     public Items() {
     }
 
@@ -31,7 +32,7 @@ public class Items  implements java.io.Serializable {
     public Items(BigDecimal itemId) {
         this.itemId = itemId;
     }
-    public Items(BigDecimal itemId, Users users, Types types, Persons persons, Groups groups, Sections sections, Units units, String itemName, String itemNotes, String barCode, Set itemsSerialses) {
+    public Items(BigDecimal itemId, Users users, Types types, Persons persons, Groups groups, Sections sections, Units units, String itemName, String itemNotes, String barCode, Blob itemPic, Set itemsSerialses, BigDecimal productType) {
        this.itemId = itemId;
        this.users = users;
        this.types = types;
@@ -41,8 +42,9 @@ public class Items  implements java.io.Serializable {
        this.units = units;
        this.itemName = itemName;
        this.itemNotes = itemNotes;
-       this.barCode = barCode;
+       this.itemPic = itemPic;
        this.itemsSerialses = itemsSerialses;
+       this.productType = productType;
     }
    
     public BigDecimal getItemId() {
@@ -108,12 +110,13 @@ public class Items  implements java.io.Serializable {
     public void setItemNotes(String itemNotes) {
         this.itemNotes = itemNotes;
     }
-    public String getBarCode() {
-        return this.barCode;
+
+    public Blob getItemPic() {
+        return this.itemPic;
     }
     
-    public void setBarCode(String barCode) {
-        this.barCode = barCode;
+    public void setItemPic(Blob itemPic) {
+        this.itemPic = itemPic;
     }
     public Set getItemsSerialses() {
         return this.itemsSerialses;
@@ -123,7 +126,15 @@ public class Items  implements java.io.Serializable {
         this.itemsSerialses = itemsSerialses;
     }
 
+    public BigDecimal getProductType() {
+        return productType;
+    }
 
+    public void setProductType(BigDecimal productType) {
+        this.productType = productType;
+    }
+
+    
 
 
 }
