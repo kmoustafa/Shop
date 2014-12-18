@@ -28,7 +28,7 @@
  ******************************************************************************/
 
 .tool-bar {
-    
+  
 }
 
 
@@ -159,7 +159,9 @@
 .tool-bar .button {
     -fx-background-color: transparent;
 }
-
+.tool-bar .ImageView{
+    -fx-border-color: #000;
+}
 .tool-bar:hover .button:pressed {
     -fx-background-color: 
         linear-gradient(
@@ -217,7 +219,7 @@
  *                                                                             *
  ******************************************************************************/
 
-.tooltip {
+/*.tooltip {
     
     -fx-background-color: rgba(112,112,112,0.95),
         linear-gradient(
@@ -229,7 +231,7 @@
     -fx-background-radius: 3,2;
     -fx-padding: 5 7 5 7;
     -fx-effect: dropshadow(one-pass-box, rgba(0,0,0,0.3),3,0,2,2);
-}
+}*/
 
 /* Page Corner. */
 .page-corner {
@@ -1428,3 +1430,11 @@
 }
 
 //////////////////////////
+.image {
+    -fx-opacity: 70%;
+    -fx-spacing: 100px;
+}
+.image:hover{
+    -fx-opacity: 100%;
+
+}

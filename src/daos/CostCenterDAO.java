@@ -55,6 +55,7 @@ public class CostCenterDAO {
             connection.close();
             return status;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             Logger.getLogger(CostCenterDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return status;

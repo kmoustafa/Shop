@@ -128,7 +128,7 @@ public class UserDAO {
                   b.setPassword(r.getString("PASSWORD"));
                   b.setName(r.getString("NAME"));
                   RoleDAO roleDAO = new RoleDAO();
-                  Role r1 = roleDAO.getRoleById(r.getInt("ROLE_ID"));
+                  Role r1 = roleDAO.getRoleById(r.getInt("USER_ROLE"));
                   b.setRole(r1);
                   b.setUserName(r.getString("USER_NAME"));
                   b.setUserType(new BigDecimal(r.getInt("USER_TYPE")));

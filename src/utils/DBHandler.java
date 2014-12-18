@@ -22,7 +22,7 @@ public class DBHandler  {
             Class.forName(DRIVERCLASS);
             this.dbURL = "jdbc:oracle:thin:@localhost:1521:XE";
             this.dbPassword = "shop";
-            this.dbUserName = "SHOPWS";
+            this.dbUserName = "SHOPDB";
         } catch (Exception e) {
             e.printStackTrace();
         }

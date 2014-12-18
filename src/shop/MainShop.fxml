@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.geometry.*?>
 <?import java.net.*?>
 <?import javafx.scene.control.*?>
@@ -10,42 +13,158 @@
    <children>
       <MenuBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="32.0" prefWidth="1366.0">
         <menus>
-          <Menu mnemonicParsing="false" text="ملف">
+          <Menu mnemonicParsing="false" text="الشركة">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Close Now" />
+              <MenuItem fx:id="chartsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="شجرة الحسابات" />
+                  <MenuItem fx:id="costCenterMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="مراكز التكلفة" />
+                  <MenuItem fx:id="expensesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المصروفات" />
+                  <MenuItem fx:id="zonesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المناطق" />
+                  <MenuItem fx:id="companyInfoMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="بيانات الشركة" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuAction" text="معلومات الشركة" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="تعديل">
+          <Menu mnemonicParsing="false" text="موردين">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem fx:id="vendorsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الموردين" />
+                  <MenuItem fx:id="purchasesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المشتريات" />
+                  <MenuItem fx:id="rePurchasesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="مرتد المشتريات" />
+                  <MenuItem fx:id="paymentsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المدفوعات" />
+                  <MenuItem fx:id="vNoticMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تسوية الموردين" />
+                  <MenuItem fx:id="ExpenseFinPaperMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="حافظة اوراق مالية لمورد" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="مساعدة">
+          <Menu mnemonicParsing="false" text="عملاء">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <MenuItem fx:id="customersMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="العملاء" />
+                  <MenuItem fx:id="salesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المبيعات" />
+                  <MenuItem fx:id="reSalesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="مرتد المبيعات" />
+                  <MenuItem fx:id="receiptsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المقبوضات" />
+                  <MenuItem fx:id="cNoticMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تسوية عميل" />
+                  <MenuItem fx:id="IncomingFinPaper" mnemonicParsing="false" onAction="#handleMenuAction" text="حافظة اوراق مالية لعميل" />
+                  <MenuItem fx:id="incheq" mnemonicParsing="false" onAction="#handleMenuAction" text="تحصيل شيك" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="بنوك">
+               <items>
+                  <MenuItem fx:id="banksMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="البنوك" />
+                  <MenuItem fx:id="convCheqToBankMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تحويل شيكات الى البنك" />
+                  <MenuItem fx:id="bNoticeMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تسوية بنك" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="الموظفين">
+               <items>
+                  <MenuItem fx:id="EmployeesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الموظفين" />
+                  <MenuItem fx:id="ExpnseN1" mnemonicParsing="false" onAction="#handleMenuAction" text="سلف" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="المخزون">
+               <items>
+                  <MenuItem fx:id="storesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المخازن" />
+                  <MenuItem fx:id="sizesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المقاسات" />
+                  <MenuItem fx:id="colorsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الالوان" />
+                  <MenuItem fx:id="departmentsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الاقسام" />
+                  <MenuItem fx:id="groupsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المجموعات" />
+                  <MenuItem fx:id="typesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الانواع" />
+                  <MenuItem fx:id="unitsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الوحدات" />
+                  <MenuItem fx:id="itemsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الاصناف" />
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuAction" text="استعلام اصناف" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="الحسابات">
+               <items>
+                  <MenuItem fx:id="dialy" mnemonicParsing="false" onAction="#handleMenuAction" text="قيود يومية" />
+                  <MenuItem fx:id="ExpnseN" mnemonicParsing="false" onAction="#handleMenuAction" text="مصروفات" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="التقارير">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuAction" text="About" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="مساعدة">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#handleMenuAction" text="About" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Pending Screens">
+               <items>
+                  <MenuItem fx:id="cashMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="كاشير" />
+                  <MenuItem fx:id="convCheqLawMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تحويل شيك لمحامي" />
+                  <MenuItem fx:id="ExpStoresMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="صادر مخازن" />
+                  <MenuItem fx:id="ImpStoresMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="وارد مخازن" />
+                  <MenuItem fx:id="transBwnStores" mnemonicParsing="false" onAction="#handleMenuAction" text="التحويل بين المخازن" />
+                  <MenuItem fx:id="sectionsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="أقسام" />
+                  <MenuItem fx:id="outCheqMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تسديد شيكات" />
+                  <MenuItem fx:id="inCheqMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="مرتد شيكات" />
+ 
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
-      <ToolBar prefHeight="40.0" prefWidth="200.0">
+      <ToolBar minHeight="45.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="60.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" onAction="#handleButtonAction" text="الشاشات الجديدة" />
+             
+                  <ImageView id="image" fx:id="newImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/new.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <ImageView id="image" fx:id="editImg" fitHeight="30.0" fitWidth="30.0" layoutX="-0.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/edit.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <ImageView id="image" fx:id="saveButton" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" onMouseClicked="#handleSave" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/save.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <ImageView id="image" fx:id="deleteImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/delete.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
+            <ImageView id="image" fx:id="firstImg" fitHeight="30.0" fitWidth="30.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/first.png" />
+               </image>
+            </ImageView>
+            <ImageView id="image" fx:id="beforeImg" fitHeight="30.0" fitWidth="30.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/next.png" />
+               </image>
+            </ImageView>
+            <ImageView id="image" fx:id="afterImg" fitHeight="30.0" fitWidth="30.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/before.png" />
+               </image>
+            </ImageView>
+            <ImageView id="image" fitHeight="30.0" fitWidth="30.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/last.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="30.0" />
+            <ImageView id="image" fx:id="preImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/print-preview.png" />
+               </image>
+            </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
+            <ImageView id="image" fx:id="printImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+               <image>
+                  <Image url="@images/print.png" />
+                  
+                     </image>
+               
+                  </ImageView>
         </items>
       </ToolBar>
       <TabPane fx:id="tabPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="696.0" prefWidth="1366.0" tabClosingPolicy="ALL_TABS">
-        <tabs>
-          <Tab text="Untitled Tab 1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="239.0" prefWidth="1366.0" />
-            </content>
-          </Tab>
-          <Tab text="Untitled Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
          <VBox.margin>
             <Insets />
          </VBox.margin>
