@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -169,5 +170,28 @@ public class CostCenterDAO {
             Logger.getLogger(CostCenterDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return costCenters;
+    }
+    
+    public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(COST_CENTER_ID) AS NEXTVAL FROM COST_CENTER");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CostCenterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
     }
 }

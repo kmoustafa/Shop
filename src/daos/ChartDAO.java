@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,15 +36,18 @@ public class ChartDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertChart(String accName, int userId, int costCenterId, int veiwMode, double openCredit, double openDebit, int rankAccount, int reportType, int debitOrCredit, String target, int isTarget){
+    public int insertChart(int accId, String accName, int userId, int costCenterId, int veiwMode, double openCredit, double openDebit, int rankAccount, int reportType, int debitOrCredit, String target, int isTarget){
         int status = 0;
          try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_charts\" ( ?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_charts\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setString(1, accName);
             proc.setInt(2, userId);
-            proc.setInt(3, costCenterId);
+            if(costCenterId != 0)
+                proc.setInt(3, costCenterId);
+            else
+                proc.setNull(3, OracleTypes.NULL);
             proc.setInt(4, veiwMode);
             proc.setDouble(5, openCredit);
             proc.setDouble(6, openDebit);
@@ -51,12 +55,13 @@ public class ChartDAO {
             proc.setInt(8, reportType);            
             proc.setInt(9, debitOrCredit);            
             proc.setString(10, target);            
-            proc.setInt(11, isTarget);            
-            proc.registerOutParameter(12, java.sql.Types.NUMERIC);
+            proc.setInt(11, isTarget);     
+            proc.setInt(12, accId);
+            proc.registerOutParameter(13, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(12);
+            status = proc.getInt(13);
             
             proc.close();
             connection.close();
@@ -73,11 +78,14 @@ public class ChartDAO {
                  try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"update_charts\" ( ?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"update_charts\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setInt(1, accId);
             proc.setString(2, accName);
             proc.setInt(3, userId);
-            proc.setInt(4, costCenterId);
+            if(costCenterId != 0)
+                proc.setInt(4, costCenterId);
+            else
+                proc.setNull(4, OracleTypes.NULL);
             proc.setInt(5, veiwMode);
             proc.setDouble(6, openCredit);
             proc.setDouble(7, openDebit);
@@ -145,7 +153,7 @@ public class ChartDAO {
                   b.setCostCenter(costCenter);
                   b.setDebitOCredit(new BigDecimal(r.getInt("DEBIT_O_CREDIT")));
                   b.setIsTarget(new BigDecimal(r.getInt("IS_TARGET")));
-                  b.setOpenCredt(r.getDouble("OPEN_CREDIT"));
+                  b.setOpenCredt(r.getDouble("OPEN_CREDT"));
                   b.setOpenDebit(r.getDouble("OPEN_DEBIT"));
                   b.setRankAccount(new BigDecimal(r.getInt("RANK_ACCOUNT")));
                   b.setReportType(new BigDecimal(r.getInt("REPORT_TYPE")));
@@ -185,7 +193,7 @@ public class ChartDAO {
                   b.setCostCenter(costCenter);
                   b.setDebitOCredit(new BigDecimal(r.getInt("DEBIT_O_CREDIT")));
                   b.setIsTarget(new BigDecimal(r.getInt("IS_TARGET")));
-                  b.setOpenCredt(r.getDouble("OPEN_CREDIT"));
+                  b.setOpenCredt(r.getDouble("OPEN_CREDT"));
                   b.setOpenDebit(r.getDouble("OPEN_DEBIT"));
                   b.setRankAccount(new BigDecimal(r.getInt("RANK_ACCOUNT")));
                   b.setReportType(new BigDecimal(r.getInt("REPORT_TYPE")));
@@ -203,5 +211,34 @@ public class ChartDAO {
             Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return charts;
+    }
+    
+    public int getNewId(int id){
+        int status = 0;
+        try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                ResultSet r = null;
+                if(id > 0 && id <10){
+                       r = proc.executeQuery("SELECT MAX(ACC_ID) AS NEXTVAL FROM CHARTS WHERE ACC_ID > 0 AND ACC_ID <10");
+
+                }else if(id > 100 && id < 1000)
+                       r = proc.executeQuery("SELECT MAX(ACC_ID) AS NEXTVAL FROM CHARTS WHERE ACC_ID > 100 AND ACC_ID < 1000 AND ACC_ID LIKE '"+(id/100)+"%'");
+                else if (id > 10000 && id < 100000)
+                       r = proc.executeQuery("SELECT MAX(ACC_ID) AS NEXTVAL FROM CHARTS WHERE ACC_ID > 10000 AND ACC_ID < 100000AND ACC_ID LIKE '"+(id/100)+"%'");
+                else if ( id > 100000)
+                       r = proc.executeQuery("SELECT MAX(ACC_ID) AS NEXTVAL FROM CHARTS WHERE ACC_ID > 100000 AND ACC_ID LIKE '"+(id/1000)+"%'");
+              if(r.next()){
+                  
+                  status = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return status;
     }
 }

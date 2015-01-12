@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -37,7 +38,7 @@ public class ZoneDAO {
                              try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_zones\" ( ?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_zone\" ( ?,? ) } ");
             proc.setString(1, zoneName);
           
             proc.registerOutParameter(2, java.sql.Types.NUMERIC);
@@ -62,7 +63,7 @@ public class ZoneDAO {
                               try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"update_zones\" ( ?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"update_zone\" ( ?,?,? ) } ");
            proc.setInt(1, zoneId);
             proc.setString(2, zoneName);
           
@@ -86,7 +87,7 @@ public class ZoneDAO {
                                               try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"delete_zones\" ( ?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"delete_zone\" ( ?,? ) } ");
            proc.setInt(1, zoneId);
 
           
@@ -110,7 +111,7 @@ public class ZoneDAO {
            try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"get_zones_ById\" ( ?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"get_zone_ById\" ( ?,? ) } ");
             proc.setInt(1, zoneId);    
             proc.registerOutParameter(2, OracleTypes.CURSOR);
             
@@ -120,7 +121,7 @@ public class ZoneDAO {
               if(r.next()){
                   b = new Zone();
                   b.setZoneId(new BigDecimal(zoneId));
-                  b.setZoneName(r.getString("UNIT_NAME"));
+                  b.setZoneName(r.getString("ZONE_NAME"));
                   
               }
             proc.close();
@@ -138,7 +139,7 @@ public class ZoneDAO {
                    try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"get_all_from_zones\" ( ? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"get_all_from_zone\" ( ? ) } ");
             proc.registerOutParameter(1, OracleTypes.CURSOR);
             
             proc.execute();
@@ -146,8 +147,8 @@ public class ZoneDAO {
               zones = new ArrayList();
               while(r.next()){
                   b = new Zone();
-                  b.setZoneId(new BigDecimal(r.getInt("UNIT_ID")));
-                  b.setZoneName(r.getString("UNIT_NAME"));
+                  b.setZoneId(new BigDecimal(r.getInt("ZONE_ID")));
+                  b.setZoneName(r.getString("ZONE_NAME"));
                   zones.add(b);
               }
             proc.close();
@@ -157,5 +158,27 @@ public class ZoneDAO {
             Logger.getLogger(ZoneDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return zones;
+    }
+     public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(ZONE_ID) AS NEXTVAL FROM ZONE");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
     }
 }

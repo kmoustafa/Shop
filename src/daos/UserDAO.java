@@ -176,4 +176,37 @@ public class UserDAO {
         }
         return users;
     }
+                public Users login(String userName, String password){
+        Users b = null;
+           try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+            CallableStatement proc = connection.prepareCall("{ call \"get_users_ByUserPassword\" ( ?,?,? ) } ");
+            proc.setString(1, userName);
+            proc.setString(2, password);
+            proc.registerOutParameter(3, OracleTypes.CURSOR);
+            
+            proc.execute();
+              ResultSet r =(ResultSet) proc.getObject(3);
+              
+              if(r.next()){
+                  b = new Users();
+                  b.setId(new BigDecimal(r.getString("ID")));
+                  b.setPassword(r.getString("PASSWORD"));
+                  b.setName(r.getString("NAME"));
+                  RoleDAO roleDAO = new RoleDAO();
+                  Role r1 = roleDAO.getRoleById(r.getInt("USER_ROLE"));
+                  b.setRole(r1);
+                  b.setUserName(r.getString("USER_NAME"));
+                  b.setUserType(new BigDecimal(r.getInt("USER_TYPE")));
+                  
+              }
+            proc.close();
+            connection.close();
+            return b;
+        } catch (SQLException ex) {
+            Logger.getLogger(UnitDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return b;
+    }
 }

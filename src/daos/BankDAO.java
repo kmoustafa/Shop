@@ -42,7 +42,10 @@ public class BankDAO {
             CallableStatement proc = connection.prepareCall("{ call \"insert_banks\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setString(1, accType);
             proc.setInt(2, userId);
-            proc.setInt(3, accId);
+            if(accId != 0)
+                proc.setInt(3, accId);
+            else
+                proc.setNull(3, OracleTypes.NULL);
             proc.setString(4, bankIdNo);
             proc.setDouble(5, openCredit);
             proc.setDouble(6, openDebit);
@@ -75,8 +78,12 @@ public class BankDAO {
             CallableStatement proc = connection.prepareCall("{ call \"update_banks\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setInt(1, bankId);
             proc.setString(2, accType);
+         
             proc.setInt(3, userId);
-            proc.setInt(4, accId);
+             if(accId != 0)
+                proc.setInt(4, accId);
+            else
+                proc.setNull(4, OracleTypes.NULL);   
             proc.setString(5, bankIdNo);
             proc.setDouble(6, openCredit);
             proc.setDouble(7, openDebit);

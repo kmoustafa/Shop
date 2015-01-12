@@ -140,12 +140,12 @@ public class DepartmentDAO {
             proc.registerOutParameter(1, OracleTypes.CURSOR);
             
             proc.execute();
-              ResultSet r =(ResultSet) proc.getObject(2);
+              ResultSet r =(ResultSet) proc.getObject(1);
               depts = new ArrayList();
               while(r.next()){
                   b = new Department();
                   b.setDeptId(new BigDecimal(r.getInt("DEPT_ID")));
-                  b.setDeptName(r.getString("DEPARTMENT"));
+                  b.setDeptName(r.getString("DEPT_NAME"));
                   depts.add(b);
               }
             proc.close();

@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -43,7 +44,10 @@ public class ExpenceDAO {
                 connection = DBHandler.connect();
             CallableStatement proc = connection.prepareCall("{ call \"insert_expences\" ( ?,?,?,? ) } ");
             proc.setInt(1, userId);
-            proc.setInt(2, accId);
+            if(accId != 0)
+                proc.setInt(2, accId);
+            else
+                proc.setNull(2, OracleTypes.NULL);
             proc.setString(3, expenseName);
                      
             proc.registerOutParameter(4, java.sql.Types.NUMERIC);
@@ -71,7 +75,10 @@ public class ExpenceDAO {
             CallableStatement proc = connection.prepareCall("{ call \"update_expences\" ( ?,?,?,?,? ) } ");
             proc.setInt(1, expenseId);
             proc.setInt(2, userId);
-            proc.setInt(3, accId);
+            if(accId != 0)
+                proc.setInt(3, accId);
+            else
+                proc.setNull(3, OracleTypes.NULL);
             proc.setString(4, expenseName);
                      
             proc.registerOutParameter(5, java.sql.Types.NUMERIC);
@@ -97,7 +104,7 @@ public class ExpenceDAO {
                try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"delete_expences\" ( ?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"delete_expences\" ( ?,? ) } ");
             proc.setInt(1, expenseId);
           
             proc.registerOutParameter(2, java.sql.Types.NUMERIC);
@@ -181,5 +188,28 @@ public class ExpenceDAO {
             Logger.getLogger(ExpenceDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return exs;
+    }
+    
+     public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(EXPENCE_ID) AS NEXTVAL FROM EXPENCES");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CostCenterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
     }
 }

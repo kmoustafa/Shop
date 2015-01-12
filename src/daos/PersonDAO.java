@@ -38,18 +38,30 @@ public class PersonDAO {
     }
     
     public int insertPerson(String personEmail, int userId, int zoneId, int deptId, int accId, int transType, String contactPhone, String contactName, double maxBalance, double opencredit, double opendebit, String notes,
-            String personAdd, String personPhone2, String personPhone, String companyName, String personName, int personType){
+            String personAdd, String personPhone2, String personPhone, String companyName, String personName, int personType, int personId){
         int status = 0;
         
          try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_persons\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_persons\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setString(1, personEmail);
-            proc.setInt(2, userId );
-            proc.setInt(3, zoneId);
-            proc.setInt(4, deptId);
-            proc.setInt(5, accId);
+            if(userId != 0)
+                proc.setInt(2, userId );
+            else
+                proc.setNull(2, OracleTypes.NULL);
+            if( zoneId != 0)
+                proc.setInt(3, zoneId);
+            else
+                proc.setNull(3, OracleTypes.NULL);            
+            if(deptId != 0)
+                proc.setInt(4, deptId);
+            else
+                proc.setNull(4, OracleTypes.NULL);            
+            if(accId != 0)
+                proc.setInt(5, accId);
+            else
+                proc.setNull(5, OracleTypes.NULL);            
             proc.setInt(6, transType);
             proc.setString(7, contactPhone);
             proc.setString(8, contactName);
@@ -63,11 +75,12 @@ public class PersonDAO {
             proc.setString(16, companyName);
             proc.setString(17, personName);
             proc.setInt(18, personType);
-            proc.registerOutParameter(19, java.sql.Types.NUMERIC);
+            proc.setInt(19, personId);
+            proc.registerOutParameter(20, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(19);
+            status = proc.getInt(20);
             
             proc.close();
             connection.close();

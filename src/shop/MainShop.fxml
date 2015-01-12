@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.image.*?>
@@ -48,21 +49,28 @@
                <items>
                   <MenuItem fx:id="banksMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="البنوك" />
                   <MenuItem fx:id="convCheqToBankMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تحويل شيكات الى البنك" />
+                  <MenuItem fx:id="convCheqLawMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تحويل شيك لمحامي" />
                   <MenuItem fx:id="bNoticeMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تسوية بنك" />
+                  <MenuItem fx:id="outCheqMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تسديد شيكات" />
+                  <MenuItem fx:id="inCheqMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="مرتد شيكات" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="الموظفين">
                <items>
                   <MenuItem fx:id="EmployeesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الموظفين" />
                   <MenuItem fx:id="ExpnseN1" mnemonicParsing="false" onAction="#handleMenuAction" text="سلف" />
+                  <MenuItem fx:id="departmentsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="أقسام وظيفية" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="المخزون">
                <items>
                   <MenuItem fx:id="storesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المخازن" />
+                  <MenuItem fx:id="ImpStoresMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="وارد مخازن" />
+                  <MenuItem fx:id="ExpStoresMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="صادر مخازن" />
+                  <MenuItem fx:id="transBwnStores" mnemonicParsing="false" onAction="#handleMenuAction" text="التحويل بين المخازن" />
                   <MenuItem fx:id="sizesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المقاسات" />
                   <MenuItem fx:id="colorsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الالوان" />
-                  <MenuItem fx:id="departmentsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الاقسام" />
+                  <MenuItem fx:id="sectionsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الأقسام" />
                   <MenuItem fx:id="groupsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="المجموعات" />
                   <MenuItem fx:id="typesMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الانواع" />
                   <MenuItem fx:id="unitsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="الوحدات" />
@@ -89,13 +97,6 @@
             <Menu mnemonicParsing="false" text="Pending Screens">
                <items>
                   <MenuItem fx:id="cashMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="كاشير" />
-                  <MenuItem fx:id="convCheqLawMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تحويل شيك لمحامي" />
-                  <MenuItem fx:id="ExpStoresMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="صادر مخازن" />
-                  <MenuItem fx:id="ImpStoresMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="وارد مخازن" />
-                  <MenuItem fx:id="transBwnStores" mnemonicParsing="false" onAction="#handleMenuAction" text="التحويل بين المخازن" />
-                  <MenuItem fx:id="sectionsMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="أقسام" />
-                  <MenuItem fx:id="outCheqMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="تسديد شيكات" />
-                  <MenuItem fx:id="inCheqMenu" mnemonicParsing="false" onAction="#handleMenuAction" text="مرتد شيكات" />
  
                </items>
             </Menu>
@@ -104,13 +105,13 @@
       <ToolBar minHeight="45.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="60.0" prefWidth="200.0">
         <items>
              
-                  <ImageView id="image" fx:id="newImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+                  <ImageView id="image" fx:id="newImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" onMouseClicked="#handleNew" pickOnBounds="true" preserveRatio="true" styleClass="image">
                <image>
                   <Image url="@images/new.png" />
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
-            <ImageView id="image" fx:id="editImg" fitHeight="30.0" fitWidth="30.0" layoutX="-0.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+            <ImageView id="image" fx:id="editImg" fitHeight="30.0" fitWidth="30.0" layoutX="-0.0" layoutY="2.0" onMouseClicked="#handleUpdate" pickOnBounds="true" preserveRatio="true" styleClass="image">
                <image>
                   <Image url="@images/edit.png" />
                </image>
@@ -122,7 +123,7 @@
                </image>
             </ImageView>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="5.0" />
-            <ImageView id="image" fx:id="deleteImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+            <ImageView id="image" fx:id="deleteImg" fitHeight="30.0" fitWidth="30.0" layoutY="2.0" onMouseClicked="#handleDelete" pickOnBounds="true" preserveRatio="true" styleClass="image">
                <image>
                   <Image url="@images/delete.png" />
                </image>
@@ -143,7 +144,7 @@
                   <Image url="@images/before.png" />
                </image>
             </ImageView>
-            <ImageView id="image" fitHeight="30.0" fitWidth="30.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
+            <ImageView id="image" fx:id="lastImg" fitHeight="30.0" fitWidth="30.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true" styleClass="image">
                <image>
                   <Image url="@images/last.png" />
                </image>
@@ -162,15 +163,62 @@
                      </image>
                
                   </ImageView>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#1f93ff00" height="30.0" stroke="TRANSPARENT" strokeType="INSIDE" width="762.0" />
+            <Button fx:id="btnShow" mnemonicParsing="false" onAction="#handleButtonAction" text="تسجيل دخول" textOverrun="CLIP" />
         </items>
       </ToolBar>
-      <TabPane fx:id="tabPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="696.0" prefWidth="1366.0" tabClosingPolicy="ALL_TABS">
-         <VBox.margin>
-            <Insets />
-         </VBox.margin>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </TabPane>
+      <Pane>
+         <children>
+            <TabPane fx:id="tabPane" nodeOrientation="RIGHT_TO_LEFT" prefHeight="696.0" prefWidth="1366.0" tabClosingPolicy="ALL_TABS">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </TabPane>
+            <GridPane fx:id="root" hgap="5.0" layoutX="378.0" layoutY="199.0" nodeOrientation="LEFT_TO_RIGHT" prefWidth="600.0" vgap="5.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <opaqueInsets>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </opaqueInsets>
+               <children>
+                  <Label nodeOrientation="RIGHT_TO_LEFT" text="إسم المستخدم" GridPane.columnIndex="2">
+                     <GridPane.margin>
+                        <Insets left="85.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <TextField fx:id="userName" nodeOrientation="RIGHT_TO_LEFT" GridPane.columnIndex="1" />
+                  <PasswordField fx:id="password" nodeOrientation="RIGHT_TO_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Label nodeOrientation="RIGHT_TO_LEFT" text="كلمة المرور" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="95.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="loginMessage" nodeOrientation="RIGHT_TO_LEFT" prefHeight="19.0" prefWidth="181.0" text="من فضلك إدخل بيانات صحيحة" textAlignment="CENTER" textFill="#6ee4ff" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Bold" size="13.0" />
+                     </font></Label>
+                  <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#handleLogin" prefHeight="27.0" prefWidth="118.0" text="دخول" GridPane.rowIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="35.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
+         </children>
+      </Pane>
    </children>
 </VBox>

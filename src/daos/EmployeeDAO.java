@@ -36,7 +36,7 @@ public class EmployeeDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertEmployee(Date hireDate, String info, int userId, int accId, double commision, int salary, String empPhone2, String empPhone1, String name){
+    public int insertEmployee(Date hireDate, String info, int userId, int accId, double commision, double salary, String empPhone2, String empPhone1, String name){
         int status = 0;
         
          try {
@@ -46,9 +46,12 @@ public class EmployeeDAO {
             proc.setDate(1, new java.sql.Date(hireDate.getTime()));
             proc.setString(2, info);
             proc.setInt(3, userId);
-            proc.setInt(4, accId);
+            if(accId != 0)
+                proc.setInt(4, accId);
+            else
+                proc.setNull(4, OracleTypes.NULL);
             proc.setDouble(5, commision);
-            proc.setInt(6, salary);
+            proc.setDouble(6, salary);
             proc.setString(7, empPhone2);
             proc.setString(8, empPhone2);            
             proc.setString(9, name);            
@@ -69,7 +72,7 @@ public class EmployeeDAO {
         return status;
     }
     
-    public int updateEmployee(int empId,Date hireDate, String info, int userId, int accId, double commision, int salary, String empPhone2, String empPhone1, String name){
+    public int updateEmployee(int empId,Date hireDate, String info, int userId, int accId, double commision, double salary, String empPhone2, String empPhone1, String name){
         int status = 0;
                  try {
             if(connection == null || connection.isClosed())
@@ -79,9 +82,12 @@ public class EmployeeDAO {
             proc.setDate(2, new java.sql.Date(hireDate.getTime()));
             proc.setString(3, info);
             proc.setInt(4, userId);
-            proc.setInt(5, accId);
+            if(accId != 0)
+                proc.setInt(5, accId);
+            else
+                proc.setNull(5, OracleTypes.NULL);
             proc.setDouble(6, commision);
-            proc.setInt(7, salary);
+            proc.setDouble(7, salary);
             proc.setString(8, empPhone2);
             proc.setString(9, empPhone2);            
             proc.setString(10, name);            
@@ -167,7 +173,7 @@ public class EmployeeDAO {
                 try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"get_all_from_employees\" ( ?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"get_all_from_employees\" ( ? ) } ");
  
             proc.registerOutParameter(1, OracleTypes.CURSOR);
             
