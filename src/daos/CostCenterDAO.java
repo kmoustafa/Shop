@@ -36,21 +36,22 @@ public class CostCenterDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertCostCenter(int userId, String costCenterName){
+    public int insertCostCenter(int costCenterId,int userId, String costCenterName){
         int status = 0;
         
          try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_cost_center\" ( ?,?,? ) } ");
-            proc.setInt(1, userId);
-            proc.setString(2, costCenterName);
+            CallableStatement proc = connection.prepareCall("{ call \"insert_cost_center\" ( ?,?,?,? ) } ");
+            proc.setInt(1, costCenterId);
+            proc.setInt(2, userId);
+            proc.setString(3, costCenterName);
                      
-            proc.registerOutParameter(3, java.sql.Types.NUMERIC);
+            proc.registerOutParameter(4, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(3);
+            status = proc.getInt(4);
             
             proc.close();
             connection.close();
@@ -180,7 +181,7 @@ public class CostCenterDAO {
                 Statement proc = connection.createStatement();
                 
             
-                ResultSet r =      proc.executeQuery("SELECT MAX(COST_CENTER_ID) AS NEXTVAL FROM COST_CENTER");
+                ResultSet r = proc.executeQuery("SELECT MAX(COST_CENTER_ID) AS NEXTVAL FROM COST_CENTER");
                   
               if(r.next()){
                   

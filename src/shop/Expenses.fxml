@@ -9,7 +9,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.ExpensesController">
+<AnchorPane id="AnchorPane" maxHeight="590.0" minHeight="590.0" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.ExpensesController">
    <children>
       <SplitPane nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -20,15 +20,18 @@
                   <Line endX="920.0" opacity="0.0" startX="30.0" />
                   <TextField fx:id="expName" layoutX="991.0" layoutY="72.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                   <Label layoutX="1196.0" layoutY="76.0" text="إسم المصروف" />
-                  <TableView fx:id="expTable" editable="true" layoutX="700.0" layoutY="153.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="367.0" prefWidth="565.0">
+                  <TableView fx:id="expTable" layoutX="700.0" layoutY="153.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="367.0" prefWidth="565.0">
                     <columns>
                       <TableColumn fx:id="codeColumn" prefWidth="143.0" text="الكود" />
                       <TableColumn fx:id="nameColumn" prefWidth="421.0" text="إسم المصروف" />
                     </columns>
                   </TableView>
                   <Label layoutX="1196.0" layoutY="116.0" text="حسابه الرئيسي" />
-                  <TextField fx:id="personalAccount" layoutX="991.0" layoutY="112.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
-                  <ComboBox layoutX="826.0" layoutY="112.0" prefWidth="150.0" />
+                  <TextField fx:id="mainAccount" editable="false" layoutX="701.0" layoutY="112.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                  <ComboBox fx:id="mainAccountCombo" layoutX="991.0" layoutY="112.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                  <TextField fx:id="search" layoutX="700.0" layoutY="31.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                  <Label layoutX="943.0" layoutY="35.0" text="البحث" />
+                  <Label layoutX="953.0" layoutY="115.0" text="كود" />
                </children></AnchorPane>
         </items>
       </SplitPane>

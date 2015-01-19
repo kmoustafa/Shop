@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package shop;
 
 import daos.CostCenterDAO;
@@ -15,6 +14,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -42,13 +42,16 @@ public class ZonesController implements Initializable {
     /**
      * Initializes the controller class.
      */
-        private static ZonesController instanse;
-    
+    private static ZonesController instanse;
+
     @FXML
     TextField code;
 
     @FXML
     TextField name;
+
+    @FXML
+    TextField search;
 
     @FXML
     TableView<Zone> zoneTable;
@@ -58,6 +61,7 @@ public class ZonesController implements Initializable {
 
     @FXML
     TableColumn nameColumn;
+    private ObservableList<Zone> filteredData = FXCollections.observableArrayList();
 
     ObservableList<Zone> list;
     public ArrayList<Zone> editList;
@@ -78,12 +82,11 @@ public class ZonesController implements Initializable {
     public void setEditList(ArrayList<Zone> editList) {
         this.editList = editList;
     }
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-          list = FXCollections.observableArrayList();
+        list = FXCollections.observableArrayList();
         editList = new ArrayList<>();
         codeColumn.setCellValueFactory(new PropertyValueFactory("zoneId"));
         nameColumn.setCellValueFactory(new PropertyValueFactory("zoneName"));
@@ -97,6 +100,23 @@ public class ZonesController implements Initializable {
                 };
         codeColumn.setCellFactory(cellFactory);
         nameColumn.setCellFactory(cellFactory);
+
+        list.addListener(new ListChangeListener<Zone>() {
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends Zone> change) {
+                updateFilteredData();
+            }
+        });
+
+        // Listen for text changes in the filter text field
+        search.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+
+                updateFilteredData();
+            }
+        });
 
         code.setEditable(false);
         name.setEditable(false);
@@ -125,50 +145,68 @@ public class ZonesController implements Initializable {
             }
         });
 
-    }  
-     public ZonesController() {
+    }
+
+    public ZonesController() {
         instanse = this;
     }
+
     public static ZonesController getInstance() {
         return instanse;
     }
-    
-     public void handleNew(){
-        
-        code.setEditable(true);
+
+    public void handleNew() {
+        clearFields();
+        code.setEditable(false);
         name.setEditable(true);
         ZoneDAO zoneDAO = new ZoneDAO();
-        this.code.setText(String.valueOf(zoneDAO.getLastIndex()));
+        this.code.setText(String.valueOf(zoneDAO.getLastIndex() + 1));
 
     }
-    public void save() {
+
+    public void save(int operation) {
         ZoneDAO zoneDAO = new ZoneDAO();
-        int id = zoneDAO.insertZone(name.getText());
-        Zone zone = zoneDAO.getZoneById(id);
-        list.add(zone);
-        zoneTable.setItems(list);
+        if (operation == 1) {
+            int id = zoneDAO.insertZone(Integer.valueOf(code.getText()), name.getText());
+            Zone zone = zoneDAO.getZoneById(id);
+            list.add(zone);
+           // zoneTable.setItems(list);
      //   fillTable();
-        handleNew();
-    }
-    public void update() {
-        ZoneDAO zoneDAO = new ZoneDAO();
-        if (!editList.isEmpty()) {
-            for (Zone zone : editList) {
-                zoneDAO.updateZone(zone.getZoneId().intValue(), zone.getZoneName());
-            }
+            //handleNew();
+            updateFilteredData();
+                        clearFields();
+
+        } else if (operation == 2) {
+            zoneDAO.updateZone(Integer.valueOf(code.getText()), name.getText());
+
+            zoneTable.getSelectionModel().getSelectedItem().setZoneName(name.getText());
+            updateFilteredData();
         }
+    }
+
+    public void update() {
+        name.setEditable(true);
+//        ZoneDAO zoneDAO = new ZoneDAO();
+//        if (!editList.isEmpty()) {
+//            for (Zone zone : editList) {
+//                zoneDAO.updateZone(zone.getZoneId().intValue(), zone.getZoneName());
+//            }
+//        }
         //System.out.println(costCenterTable.getItems());
     }
 
-    public void delete(){
-     
+    public void delete() {
+
         String id = zoneTable.getSelectionModel().getSelectedItem().getZoneId().toString();
         ZoneDAO zoneDAO = new ZoneDAO();
-                zoneDAO.deleteZone(Integer.parseInt(id));
-                   list.remove(zoneTable.getSelectionModel().getSelectedItem());
-        zoneTable.setItems(list);
-               // fillTable();
+        zoneDAO.deleteZone(Integer.parseInt(id));
+        list.remove(zoneTable.getSelectionModel().getSelectedItem());
+        // zoneTable.setItems(list);
+        updateFilteredData();
+
+        // fillTable();
     }
+
     public void fillTable() {
         ZoneDAO zoneDAO = new ZoneDAO();
         ArrayList<Zone> zones = (ArrayList) zoneDAO.getAllZones();
@@ -176,10 +214,13 @@ public class ZonesController implements Initializable {
         for (Zone z : zones) {
             list.add(z);
         }
-        zoneTable.setItems(list);
+        filteredData.addAll(list);
+
+        zoneTable.setItems(filteredData);
 
     }
-      // EditingCell - for editing capability in a TableCell
+
+    // EditingCell - for editing capability in a TableCell
     public class EditingCell extends TableCell<Zone, Object> {
 
         private TextField textField;
@@ -261,5 +302,45 @@ public class ZonesController implements Initializable {
             Object o = getItem();
             return getItem() == null ? "" : getItem().toString();
         }
+    }
+
+    private void updateFilteredData() {
+        filteredData.clear();
+
+        for (Zone p : list) {
+            if (matchesFilter(p)) {
+                filteredData.add(p);
+            }
+        }
+
+        // Must re-sort table after items changed
+        reapplyTableSortOrder();
+    }
+
+    private boolean matchesFilter(Zone z) {
+        String filterString = search.getText();
+        if (filterString == null || filterString.isEmpty()) {
+            // No filter --> Add all.
+            return true;
+        }
+
+        String lowerCaseFilterString = filterString.toLowerCase();
+
+        if (z.getZoneName().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+            return true;
+        }
+
+        return false; // Does not match
+    }
+
+    private void reapplyTableSortOrder() {
+        ArrayList<TableColumn<Zone, ?>> sortOrder = new ArrayList<>(zoneTable.getSortOrder());
+        zoneTable.getSortOrder().clear();
+        zoneTable.getSortOrder().addAll(sortOrder);
+    }
+
+    private void clearFields() {
+        this.code.setText("");
+        this.name.setText("");
     }
 }

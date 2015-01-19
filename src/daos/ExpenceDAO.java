@@ -36,25 +36,26 @@ public class ExpenceDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertExpence(int userId, int accId, String expenseName){
+    public int insertExpence(int expenseId, int userId, int accId, String expenseName){
         int status = 0;
        
           try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_expences\" ( ?,?,?,? ) } ");
-            proc.setInt(1, userId);
+            CallableStatement proc = connection.prepareCall("{ call \"insert_expences\" ( ?,?,?,?,? ) } ");
+            proc.setInt(1, expenseId);
+            proc.setInt(2, userId);            
             if(accId != 0)
-                proc.setInt(2, accId);
+                proc.setInt(3, accId);
             else
-                proc.setNull(2, OracleTypes.NULL);
-            proc.setString(3, expenseName);
+                proc.setNull(3, OracleTypes.NULL);
+            proc.setString(4, expenseName);
                      
-            proc.registerOutParameter(4, java.sql.Types.NUMERIC);
+            proc.registerOutParameter(5, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(4);
+            status = proc.getInt(5);
             
             proc.close();
             connection.close();

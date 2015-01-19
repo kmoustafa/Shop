@@ -33,19 +33,20 @@ public class ZoneDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertZone(String zoneName){
+    public int insertZone(int zoneId, String zoneName){
         int status = 0;
                              try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_zone\" ( ?,? ) } ");
-            proc.setString(1, zoneName);
+            CallableStatement proc = connection.prepareCall("{ call \"insert_zone\" ( ?,?,? ) } ");
+            proc.setInt(1, zoneId);
+            proc.setString(2, zoneName);
           
-            proc.registerOutParameter(2, java.sql.Types.NUMERIC);
+            proc.registerOutParameter(3, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(2);
+            status = proc.getInt(3);
             
             proc.close();
             connection.close();

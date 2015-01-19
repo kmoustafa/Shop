@@ -136,12 +136,12 @@ public class CostCentersController implements Initializable {
             }
         });
           
-          // Listen for text changes in the filter text field
+        // Listen for text changes in the filter text field
         search.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable,
                     String oldValue, String newValue) {
-
+                
                 updateFilteredData();
             }
         });
@@ -174,11 +174,11 @@ public class CostCentersController implements Initializable {
 
     }
     public void handleNew(){
-        
-        code.setEditable(true);
+        clearFields();
+
         name.setEditable(true);
         CostCenterDAO costCenterDAO = new CostCenterDAO();
-        this.code.setText(String.valueOf(costCenterDAO.getLastIndex()));
+        this.code.setText(String.valueOf(costCenterDAO.getLastIndex()+1));
 
     }
     public CostCentersController() {
@@ -190,24 +190,34 @@ public class CostCentersController implements Initializable {
         return instanse;
     }
 
-    public void save() {
+    public void save(int operation) {
         CostCenterDAO centerDAO = new CostCenterDAO();
-        int id = centerDAO.insertCostCenter(1, name.getText());
+        if(operation == 1){
+        int id = centerDAO.insertCostCenter(Integer.valueOf(code.getText()),1, name.getText());
         CostCenter newCostCenter = centerDAO.getCostCenterById(id);
         list.add(newCostCenter);
-        costCenterTable.setItems(list);
+        //costCenterTable.setItems(filteredData);
+        updateFilteredData();
+        clearFields();
+        }else if(operation == 2){
+            centerDAO.updateCostCenter(Integer.valueOf(code.getText()),1, name.getText());
+            costCenterTable.getSelectionModel().getSelectedItem().setCostCenterName(name.getText());
+            updateFilteredData();
+        }
      //   fillTable();
-        handleNew();
+        //handleNew();
+        name.setEditable(false);
+        code.setEditable(false);
     }
     
     
     public void update() {
-        CostCenterDAO centerDAO = new CostCenterDAO();
-        if (!editList.isEmpty()) {
-            for (CostCenter costCenter : editList) {
-                centerDAO.updateCostCenter(costCenter.getCostCenterId().intValue(),1, costCenter.getCostCenterName());
-            }
-        }
+    name.setEditable(true);
+//        if (!editList.isEmpty()) {
+//            for (CostCenter costCenter : editList) {
+//                centerDAO.updateCostCenter(costCenter.getCostCenterId().intValue(),1, costCenter.getCostCenterName());
+//            }
+//        }
         //System.out.println(costCenterTable.getItems());
     }
 
@@ -217,7 +227,8 @@ public class CostCentersController implements Initializable {
                 CostCenterDAO centerDAO = new CostCenterDAO();
                 centerDAO.deleteCostCenter(Integer.parseInt(id));
                    list.remove(costCenterTable.getSelectionModel().getSelectedItem());
-        costCenterTable.setItems(list);
+       // costCenterTable.setItems(list);
+                   updateFilteredData();
                // fillTable();
     }
     public void fillTable() {
@@ -231,6 +242,12 @@ public class CostCentersController implements Initializable {
 
         costCenterTable.setItems(filteredData);
 
+    }
+
+   
+    private void clearFields() {
+        this.code.setText("");
+        this.name.setText("");
     }
 
     // EditingCell - for editing capability in a TableCell

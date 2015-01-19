@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,20 +33,20 @@ public class GroupDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertGroup(String groupName){
+    public int insertGroup(int groupId, String groupName){
         int status = 0;
         
          try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_groups\" ( ?,? ) } ");
-            proc.setString(1, groupName);
-          
-            proc.registerOutParameter(2, java.sql.Types.NUMERIC);
+            CallableStatement proc = connection.prepareCall("{ call \"insert_groups\" ( ?,?,? ) } ");
+            proc.setInt(1, groupId);
+            proc.setString(2, groupName);          
+            proc.registerOutParameter(3, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(2);
+            status = proc.getInt(3);
             
             proc.close();
             connection.close();
@@ -163,4 +164,26 @@ public class GroupDAO {
         }
         return groups;
     }
+     public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(GROUP_ID) AS NEXTVAL FROM GROUPS");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
+    }    
 }

@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -32,19 +33,19 @@ public class DepartmentDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertDepartment(String deptName){
+    public int insertDepartment(int deptId, String deptName){
         int status = 0;
          try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_department\" ( ?,? ) } ");
-            proc.setString(1, deptName);
-          
-            proc.registerOutParameter(2, java.sql.Types.NUMERIC);
+            CallableStatement proc = connection.prepareCall("{ call \"insert_department\" ( ?,?,? ) } ");
+            proc.setInt(1, deptId);
+                      proc.setString(2, deptName);
+            proc.registerOutParameter(3, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(2);
+            status = proc.getInt(3);
             
             proc.close();
             connection.close();
@@ -155,5 +156,27 @@ public class DepartmentDAO {
             Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return depts;
+    }
+         public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(DEPT_ID) AS NEXTVAL FROM DEPARTMENT");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
     }
 }

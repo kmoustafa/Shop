@@ -124,62 +124,66 @@ public class ChartsController implements Initializable {
                 //Check whether item is selected and set value of selected item to Label
                 if (chartTree.getSelectionModel().getSelectedItem() != null) {
                     TreeItem treeItem = (TreeItem) chartTree.getSelectionModel().getSelectedItem();
-                    int id = Integer.parseInt(((Label) treeItem.getGraphic()).getText());
-                    Charts chart = chartMap.get(id);
-                    if (chart.getAccId() != BigDecimal.ZERO) {
-                        accId.setText(chart.getAccId().toString());
-                    }
-                    if (chart.getAccName() != null && !chart.getAccName().isEmpty()) {
-                        accName.setText(chart.getAccName());
-                    }
-                    if (chart.getTarget() != null && !chart.getTarget().isEmpty()) {
-                        target.setText(chart.getTarget());
-                        if(!chart.getTarget().equals("0"))
-                            targetName.setText(chartMap.get(Integer.parseInt(chart.getTarget())).getAccName());
-                    }
-                    if (chart.getRankAccount() != null && chart.getRankAccount() != BigDecimal.ZERO) {
-                        accRank.setText(chart.getRankAccount().toString());
-                    }
-                    if (chart.getOpenCredt() != null && chart.getOpenCredt() != 0) {
-                        credit.setText(chart.getOpenCredt().toString());
-                    }
-                    if (chart.getOpenDebit() != null && chart.getOpenDebit() != 0) {
-                        debit.setText(chart.getOpenDebit().toString());
-                    }
-                    if (chart.getDebitOCredit() != null && chart.getDebitOCredit() != BigDecimal.valueOf(-1)) {
-                        if (chart.getDebitOCredit().intValue() == 0) {
-                            // debitCredit.selectToggle(radDebit);
-                            radDebit.setSelected(true);
-                        } else if (chart.getDebitOCredit().intValue() == 1) {
-                            radCredit.setSelected(true);
+                    if (treeItem.getGraphic() != null) {
+                        int id = Integer.parseInt(((Label) treeItem.getGraphic()).getText());
+                        Charts chart = chartMap.get(id);
+                        if (chart.getAccId() != BigDecimal.ZERO) {
+                            accId.setText(chart.getAccId().toString());
+                        }
+                        if (chart.getAccName() != null && !chart.getAccName().isEmpty()) {
+                            accName.setText(chart.getAccName());
+                        }
+                        if (chart.getTarget() != null && !chart.getTarget().isEmpty()) {
+                            target.setText(chart.getTarget());
+                            if (!chart.getTarget().equals("0")) {
+                                targetName.setText(chartMap.get(Integer.parseInt(chart.getTarget())).getAccName());
+                            } else {
+                                targetName.setText("");
+                            }
+                        }
+                        if (chart.getRankAccount() != null && chart.getRankAccount() != BigDecimal.ZERO) {
+                            accRank.setText(chart.getRankAccount().toString());
+                        }
+                        if (chart.getOpenCredt() != null && chart.getOpenCredt() != 0) {
+                            credit.setText(chart.getOpenCredt().toString());
+                        }
+                        if (chart.getOpenDebit() != null && chart.getOpenDebit() != 0) {
+                            debit.setText(chart.getOpenDebit().toString());
+                        }
+                        if (chart.getDebitOCredit() != null && chart.getDebitOCredit() != BigDecimal.valueOf(-1)) {
+                            if (chart.getDebitOCredit().intValue() == 0) {
+                                // debitCredit.selectToggle(radDebit);
+                                radDebit.setSelected(true);
+                            } else if (chart.getDebitOCredit().intValue() == 1) {
+                                radCredit.setSelected(true);
+                            }
+                        }
+                        if (chart.getIsTarget() != null && chart.getIsTarget() != BigDecimal.valueOf(-1)) {
+                            if (chart.getIsTarget().intValue() == 0) {
+                                radMain.setSelected(true);
+                            } else if (chart.getIsTarget().intValue() == 1) {
+                                radSub.setSelected(true);
+                            }
+                        }
+                        if (chart.getReportType() != null && chart.getReportType() != BigDecimal.valueOf(-1)) {
+                            if (chart.getReportType().intValue() == 0) {
+                                radBudget.setSelected(true);
+                            } else if (chart.getReportType().intValue() == 1) {
+                                radHesabMotagra.setSelected(true);
+                            } else if (chart.getReportType().intValue() == 2) {
+                                radWinLose.setSelected(true);
+                            }
+                        }
+                        if (chart.getViewMode() != null && chart.getViewMode() != BigDecimal.valueOf(-1)) {
+                            if (chart.getViewMode().intValue() == 0) {
+                                radTitle.setSelected(true);
+                            } else if (chart.getViewMode().intValue() == 1) {
+                                radView.setSelected(true);
+                            } else if (chart.getViewMode().intValue() == 2) {
+                                radNoView.setSelected(true);
+                            }
                         }
                     }
-                    if (chart.getIsTarget() != null && chart.getIsTarget() != BigDecimal.valueOf(-1)) {
-                        if (chart.getIsTarget().intValue() == 0) {
-                            radMain.setSelected(true);
-                        } else if (chart.getIsTarget().intValue() == 1) {
-                            radSub.setSelected(true);
-                        }
-                    }
-                    if (chart.getReportType() != null && chart.getReportType() != BigDecimal.valueOf(-1)) {
-                        if (chart.getReportType().intValue() == 0) {
-                            radBudget.setSelected(true);
-                        } else if (chart.getReportType().intValue() == 1) {
-                            radHesabMotagra.setSelected(true);
-                        } else if (chart.getReportType().intValue() == 2) {
-                            radWinLose.setSelected(true);
-                        }
-                    }
-                    if (chart.getViewMode() != null && chart.getViewMode() != BigDecimal.valueOf(-1)) {
-                        if (chart.getViewMode().intValue() == 0) {
-                            radTitle.setSelected(true);
-                        } else if (chart.getViewMode().intValue() == 1) {
-                            radView.setSelected(true);
-                        } else if (chart.getViewMode().intValue() == 2) {
-                            radNoView.setSelected(true);
-                        }
-                    }
-
                 }
             }
         });
@@ -264,7 +268,7 @@ public class ChartsController implements Initializable {
             }
         });
 
-        enableFields(false);
+        enableFields(false, true);
 
     }
 
@@ -291,7 +295,7 @@ public class ChartsController implements Initializable {
             accId.setText(String.valueOf(r + 1));
         }
 
-        enableFields(true);
+        enableFields(true, false);
     }
 
     public void save(int op) {
@@ -361,29 +365,29 @@ public class ChartsController implements Initializable {
             chartMap.put(id, p);
         } else if (op == 2) {
             TreeItem treeItem = (TreeItem) chartTree.getSelectionModel().getSelectedItem();
-                ((TreeItem) chartTree.getSelectionModel().getSelectedItem()).setValue(accName.getText());
+            ((TreeItem) chartTree.getSelectionModel().getSelectedItem()).setValue(accName.getText());
             int id = chartDAO.updateChart(Integer.parseInt(accId.getText()), accName.getText(), 1, 0, veiwMode, Double.parseDouble(credit.getText()), Double.parseDouble(debit.getText()),
                     Integer.parseInt(accRank.getText()), report, debitOrCredit, target.getText(), mainOrSub);
-             Charts p = new Charts(new BigDecimal(Integer.parseInt(accId.getText())), null, null, new BigDecimal(mainOrSub), target.getText(), new BigDecimal(debitOrCredit),
+            Charts p = new Charts(new BigDecimal(Integer.parseInt(accId.getText())), null, null, new BigDecimal(mainOrSub), target.getText(), new BigDecimal(debitOrCredit),
                     new BigDecimal(report), new BigDecimal(accRank.getText()), Double.parseDouble(debit.getText()), Double.parseDouble(credit.getText()),
                     new BigDecimal(veiwMode), accName.getText(), null, null, null, null, null);
-             chartMap.remove(Integer.parseInt(accId.getText()));
-             chartMap.put(Integer.parseInt(accId.getText()), p);
+            chartMap.remove(Integer.parseInt(accId.getText()));
+            chartMap.put(Integer.parseInt(accId.getText()), p);
         }
         //handleNew();
     }
 
     public void update() {
-        enableFields(true);
+        enableFields(true, true);
 
         //System.out.println(costCenterTable.getItems());
     }
 
     public void delete() {
         ChartDAO chartDAO = new ChartDAO();
-        TreeItem parent = ((TreeItem)chartTree.getSelectionModel().getSelectedItem()).getParent();
+        TreeItem parent = ((TreeItem) chartTree.getSelectionModel().getSelectedItem()).getParent();
         chartDAO.deleteChart(Integer.parseInt(accId.getText()));
-            parent.getChildren().remove(((TreeItem) chartTree.getSelectionModel().getSelectedItem()));
+        parent.getChildren().remove(((TreeItem) chartTree.getSelectionModel().getSelectedItem()));
 
     }
 
@@ -512,7 +516,7 @@ public class ChartsController implements Initializable {
         }
     }
 
-    public void enableFields(boolean status) {
+    public void enableFields(boolean status, boolean isEdit) {
 
 //        radCredit.set(status);
 //        radDebit.setDisable(status);
@@ -524,13 +528,21 @@ public class ChartsController implements Initializable {
 //        radBudget.setDisable(status);
 //        radHesabMotagra.setDisable(status);
 //        radWinLose.setDisable(status);
-        accId.setEditable(status);
-        accName.setEditable(status);
-        target.setEditable(status);
-        accRank.setEditable(status);
-        credit.setEditable(status);
-        debit.setEditable(status);
-
+        if (isEdit) {
+            accId.setEditable(false);
+            accName.setEditable(status);
+            target.setEditable(status);
+            accRank.setEditable(status);
+            credit.setEditable(status);
+            debit.setEditable(status);
+        } else {
+            accId.setEditable(status);
+            accName.setEditable(status);
+            target.setEditable(status);
+            accRank.setEditable(status);
+            credit.setEditable(status);
+            debit.setEditable(status);
+        }
     }
 
     public void clearFields() {

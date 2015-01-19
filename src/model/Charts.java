@@ -177,7 +177,12 @@ public class Charts  implements java.io.Serializable {
         this.expenceses = expenceses;
     }
 
+    @Override
+    public String toString() {
+        return this.getAccName(); //To change body of generated methods, choose Tools | Templates.
+    }
 
+    
 
 
 }

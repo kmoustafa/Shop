@@ -8,6 +8,7 @@ package shop;
 
 import daos.DepartmentDAO;
 import daos.ExpenceDAO;
+import daos.ZoneDAO;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,6 +33,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.util.Callback;
 import model.Department;
 import model.Expences;
+import model.Zone;
 
 /**
  * FXML Controller class
@@ -50,13 +53,18 @@ public class DepartmentsController implements Initializable {
     TextField depCode;
     @FXML
     TextField depName;
+        @FXML
+    TextField search;
     @FXML
     TableView<Department> depTable;
     @FXML
     TableColumn codeColumn;
     @FXML
     TableColumn nameColumn;    
+        private ObservableList<Department> filteredData = FXCollections.observableArrayList();
+
     @Override
+    
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         
@@ -74,6 +82,23 @@ public class DepartmentsController implements Initializable {
                 };
         codeColumn.setCellFactory(cellFactory);
         nameColumn.setCellFactory(cellFactory);
+
+        
+        list.addListener(new ListChangeListener<Department>() {
+            @Override
+            public void onChanged(ListChangeListener.Change<? extends Department> change) {
+                updateFilteredData();
+            }
+        });
+                // Listen for text changes in the filter text field
+        search.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable,
+                    String oldValue, String newValue) {
+
+                updateFilteredData();
+            }
+        });
 
         depCode.setEditable(false);
         depName.setEditable(false);
@@ -110,30 +135,41 @@ public class DepartmentsController implements Initializable {
         return instanse;
     }
         public void handleNew() {
-        depCode.setEditable(true);
+        clearFields();
+        depCode.setEditable(false);
         depName.setEditable(true);
-
-        //DepartmentDAO depDAO = new DepartmentDAO();
-        //this.expCode.setText(String.valueOf(expenceDAO.getLastIndex()));
+               DepartmentDAO depDAO = new DepartmentDAO();
+        this.depCode.setText(String.valueOf(depDAO.getLastIndex() + 1));
     }
 
-        public void save() {
+        public void save(int operation) {
                DepartmentDAO depDAO = new DepartmentDAO();
-        int id = depDAO.insertDepartment(depName.getText());
+               if(operation == 1){
+        int id = depDAO.insertDepartment(Integer.valueOf(depCode.getText()), depName.getText());
         Department dep = depDAO.getDepartmentById(id);
         list.add(dep);
-        depTable.setItems(list);
+       // depTable.setItems(list);
         //   fillTable();
-        depTable.getSelectionModel().focus(depTable.getItems().size());
-        handleNew();
+        //depTable.getSelectionModel().focus(depTable.getItems().size());
+        
+       // handleNew();
+        updateFilteredData();
+        clearFields();
+               }else if(operation ==2){
+               depDAO.updateDepartment(Integer.valueOf( depCode.getText()), depName.getText());
+            depTable.getSelectionModel().getSelectedItem().setDeptName(depName.getText());
+            updateFilteredData();
+               }
     }
         public void update() {
-               DepartmentDAO depDAO = new DepartmentDAO();
-        if (!editList.isEmpty()) {
-            for (Department dep : editList) {
-                depDAO.updateDepartment(dep.getDeptId().intValue(), dep.getDeptName());
-            }
-        }
+                    depName.setEditable(true);
+
+//               DepartmentDAO depDAO = new DepartmentDAO();
+//        if (!editList.isEmpty()) {
+//            for (Department dep : editList) {
+//                depDAO.updateDepartment(dep.getDeptId().intValue(), dep.getDeptName());
+//            }
+//        }
         //System.out.println(costCenterTable.getItems());
     }
 public void delete(){
@@ -142,17 +178,21 @@ public void delete(){
                DepartmentDAO depDAO = new DepartmentDAO();
         depDAO.deleteDepartment(Integer.parseInt(id));
                 list.remove(depTable.getSelectionModel().getSelectedItem());
-        depTable.setItems(list);
+        //depTable.setItems(list);
                // fillTable();
+                updateFilteredData();
     }    
     public void fillTable(){
-               DepartmentDAO depDAO = new DepartmentDAO();
+        DepartmentDAO depDAO = new DepartmentDAO();
         ArrayList<Department> deps = (ArrayList) depDAO.getAllDepartments();
         list = FXCollections.observableArrayList();
         for (Department dep : deps) {
             list.add(dep);
         }
-        depTable.setItems(list);
+              filteredData.addAll(list);
+
+        depTable.setItems(filteredData);
+
     }
     
     
@@ -244,5 +284,45 @@ public void delete(){
             Object o = getItem();
             return getItem() == null ? "" : getItem().toString();
         }
+    }
+     
+         private void updateFilteredData() {
+        filteredData.clear();
+
+        for (Department p : list) {
+            if (matchesFilter(p)) {
+                filteredData.add(p);
+            }
+        }
+
+        // Must re-sort table after items changed
+        reapplyTableSortOrder();
+    }
+
+    private boolean matchesFilter(Department z) {
+        String filterString = search.getText();
+        if (filterString == null || filterString.isEmpty()) {
+            // No filter --> Add all.
+            return true;
+        }
+
+        String lowerCaseFilterString = filterString.toLowerCase();
+
+        if (z.getDeptName().toLowerCase().indexOf(lowerCaseFilterString) != -1) {
+            return true;
+        }
+
+        return false; // Does not match
+    }
+
+    private void reapplyTableSortOrder() {
+        ArrayList<TableColumn<Department, ?>> sortOrder = new ArrayList<>(depTable.getSortOrder());
+        depTable.getSortOrder().clear();
+        depTable.getSortOrder().addAll(sortOrder);
+    }
+
+    private void clearFields() {
+        this.depCode.setText("");
+        this.depName.setText("");
     }
 }

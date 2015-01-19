@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventType;
 import javafx.fxml.FXML;
@@ -24,6 +25,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.NodeOrientation;
 import javafx.scene.Node;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
@@ -36,6 +38,7 @@ import javafx.scene.layout.TilePane;
 import model.CostCenter;
 import model.Persons;
 import model.PersonsId;
+import model.Zone;
 
 /**
  * FXML Controller class
@@ -82,7 +85,19 @@ public class VendorsController implements Initializable {
     TextField openDebit;
     @FXML
     TextField openCredit;
+    //ComapnyName = نسبة الخصم
+    @FXML
+    TextField companyName;
+    @FXML
+    TextField maxBalance;
+    @FXML
+    ComboBox<String> treatmentType;
+    @FXML
+    TextField zoneCode;
+    @FXML
+    ComboBox<Zone>  zoneCombo;
     
+    ObservableList<String> treatmentTypeList = FXCollections.observableArrayList();
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -119,9 +134,10 @@ public class VendorsController implements Initializable {
         });
 
         vendorTree.setRoot(treeRoot);
-        
         treeRoot.setExpanded(true);
-       
+        treatmentTypeList.add("آجل");
+        treatmentTypeList.add("نقدي");
+        
     }   
     public VendorsController(){
         instanse = this;
@@ -171,5 +187,21 @@ public class VendorsController implements Initializable {
            treeRoot.getChildren().add(item);  
            venMap.put(persons1.getId().getPersonId().intValue(), persons1);
         }
+    }
+    
+    public void enableFields(boolean status){
+         venCode.setEditable(status);
+        venName.setEditable(status);
+        venPhone1.setEditable(status);
+        venPhone2.setEditable(status);
+        venEmail.setEditable(status);
+        venAdd.setEditable(status);        
+        contactName.setEditable(status);
+        contactPhone.setEditable(status);
+        openDebit.setEditable(status);        
+        openCredit.setEditable(status);
+    }
+    public void clearFields(boolean status){
+        
     }
 }

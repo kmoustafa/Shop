@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,19 +36,20 @@ public class ColorDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertColor(String colorName){
+    public int insertColor(int colorId, String colorName){
         int status = 0;
          try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_colors\" ( ?,? ) } ");
-            proc.setString(1, colorName);
+            CallableStatement proc = connection.prepareCall("{ call \"insert_colors\" ( ?,?,? ) } ");
+            proc.setInt(1, colorId);
+            proc.setString(2, colorName);
           
-            proc.registerOutParameter(2, java.sql.Types.NUMERIC);
+            proc.registerOutParameter(3, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(2);
+            status = proc.getInt(3);
             
             proc.close();
             connection.close();
@@ -143,7 +145,7 @@ public class ColorDAO {
             proc.registerOutParameter(1, OracleTypes.CURSOR);
             
             proc.execute();
-              ResultSet r =(ResultSet) proc.getObject(2);
+              ResultSet r =(ResultSet) proc.getObject(1);
               colors = new ArrayList();
               while(r.next()){
                   b = new Colors();
@@ -158,5 +160,27 @@ public class ColorDAO {
             Logger.getLogger(BankDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return colors;
+    }
+     public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(COLOR_ID) AS NEXTVAL FROM COLORS");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
     }
 }
