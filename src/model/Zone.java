@@ -51,6 +51,11 @@ public class Zone  implements java.io.Serializable {
         this.personses = personses;
     }
 
+    @Override
+    public String toString() {
+        return  zoneName ;
+    }
+
 
 
 

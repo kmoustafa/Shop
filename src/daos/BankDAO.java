@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -34,12 +35,12 @@ public class BankDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertBank(String bankName, String bankBranch, String bankAdd, String bankPhone, String bankFax, String bankEmail, double openDebit, double openCredit, String bankIdNo, int accId, int userId, String accType){
+    public int insertBank(int bankId, String bankName, String bankBranch, String bankAdd, String bankPhone, String bankFax, String bankEmail, double openDebit, double openCredit, String bankIdNo, int accId, int userId, String accType){
             int status = 0;
         try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_banks\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_banks\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setString(1, accType);
             proc.setInt(2, userId);
             if(accId != 0)
@@ -54,12 +55,13 @@ public class BankDAO {
             proc.setString(9, bankPhone);            
             proc.setString(10, bankAdd);            
             proc.setString(11, bankBranch);            
-            proc.setString(12, bankName);            
-            proc.registerOutParameter(13, java.sql.Types.NUMERIC);
+            proc.setString(12, bankName);    
+            proc.setInt(13, bankId);
+            proc.registerOutParameter(14, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(13);
+            status = proc.getInt(14);
             
             proc.close();
             connection.close();
@@ -213,4 +215,26 @@ public class BankDAO {
         }
         return banks;
     }
+     public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(BANK_ID) AS NEXTVAL FROM BANKS");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CostCenterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
+    }    
 }

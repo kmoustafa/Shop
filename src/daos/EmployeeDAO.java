@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,13 +37,13 @@ public class EmployeeDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertEmployee(Date hireDate, String info, int userId, int accId, double commision, double salary, String empPhone2, String empPhone1, String name){
+    public int insertEmployee(Date hireDate, String info, int userId, int accId, double commision, double salary, String empPhone2, String empPhone1, String name, int empId){
         int status = 0;
         
          try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_employees\" ( ?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_employees\" ( ?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setDate(1, new java.sql.Date(hireDate.getTime()));
             proc.setString(2, info);
             proc.setInt(3, userId);
@@ -55,12 +56,12 @@ public class EmployeeDAO {
             proc.setString(7, empPhone2);
             proc.setString(8, empPhone2);            
             proc.setString(9, name);            
-           
-            proc.registerOutParameter(10, java.sql.Types.NUMERIC);
+           proc.setInt(10, empId);
+            proc.registerOutParameter(11, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(10);
+            status = proc.getInt(11);
             
             proc.close();
             connection.close();
@@ -189,6 +190,9 @@ public class EmployeeDAO {
                   b.setEmpPhone2(r.getString("EMP_PHONE2"));
                   b.setHireDate(r.getDate("HIRE_DATE"));
                   b.setInfo(r.getString("INFO"));
+                   ChartDAO chartDAO = new ChartDAO();
+                  Charts chart = chartDAO.getChartById(r.getInt("ACC_ID"));
+                  b.setCharts(chart);
                   b.setSalary(r.getDouble("SALARY"));                  
                   UserDAO userDAO = new UserDAO();
                   Users user = userDAO.getUserById(r.getInt("USER_ID"));
@@ -203,4 +207,27 @@ public class EmployeeDAO {
         }
         return emps;
     }
+         public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(EMP_ID) AS NEXTVAL FROM EMPLOYEES");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
+    }
+    
 }

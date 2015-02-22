@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,13 +41,13 @@ public class ItemDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertItem(int productType, Blob itemPic, int userId, int unitId, int sectionId, int groupId, int typeId, int personType, int personId, String itemNotes, String itemName ){
+    public int insertItem(int productType, Blob itemPic, int userId, int unitId, int sectionId, int groupId, int typeId, int personType, int personId, String itemNotes, String itemName, int itemId ){
         int status = 0;
         
            try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_items\" ( ?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_items\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setInt(1, productType);
             proc.setBlob(2,itemPic );
             proc.setInt(3, userId);
@@ -57,12 +58,13 @@ public class ItemDAO {
             proc.setInt(8, personType);            
             proc.setInt(9, personId);            
             proc.setString(10, itemNotes);            
-            proc.setString(11, itemName);                        
-            proc.registerOutParameter(12, java.sql.Types.NUMERIC);
+            proc.setString(11, itemName);        
+            proc.setInt(12, itemId);
+            proc.registerOutParameter(13, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(12);
+            status = proc.getInt(13);
             
             proc.close();
             connection.close();
@@ -153,7 +155,8 @@ public class ItemDAO {
                   PersonDAO personDAO = new PersonDAO();
                   Persons p = personDAO.getPersonById(r.getInt("PERSON_ID"));
                   b.setPersons(p);
-                  b.setProductType(new BigDecimal(r.getInt("PERSON_TYPE")));
+                  b.setProductType(new BigDecimal(r.getInt("PRODUCT_TYPE")));
+                 
                   SectionDAO sectionDAO = new SectionDAO();
                   Sections sections = sectionDAO.getSectionById(r.getInt("SECTION_ID"));
                   b.setSections(sections);
@@ -228,5 +231,27 @@ public class ItemDAO {
         }
   
         return item;
+    }
+        public int getLastIndex() {
+        int lastIndex = 0;
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DBHandler.connect();
+            }
+            Statement proc = connection.createStatement();
+
+            ResultSet r = proc.executeQuery("SELECT MAX(ITEM_ID) AS NEXTVAL FROM ITEMS");
+
+            if (r.next()) {
+
+                lastIndex = r.getInt("NEXTVAL");
+
+            }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(ZoneDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
     }
 }

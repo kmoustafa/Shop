@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.VendorsController">
+<AnchorPane id="AnchorPane" maxHeight="590.0" minHeight="590.0" prefHeight="590.0" prefWidth="1336.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="shop.VendorsController">
    <children>
       <SplitPane dividerPositions="0.2894736842105263" nodeOrientation="LEFT_TO_RIGHT" prefHeight="590.0" prefWidth="1336.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -26,12 +26,12 @@
                                  <children>
                                     <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="812.0" layoutY="148.0" text="عنوان" textAlignment="RIGHT" />
                                     <Label layoutX="782.0" layoutY="111.0" text="بريد إلكتروني" />
-                                    <TextField fx:id="venCode" layoutX="653.0" layoutY="19.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="100.0" />
+                                    <TextField fx:id="venCode" editable="false" layoutX="653.0" layoutY="19.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="100.0" />
                                     <TextField fx:id="venName" layoutX="309.0" layoutY="19.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <TextField fx:id="venPhone1" layoutX="593.0" layoutY="62.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <TextField fx:id="venPhone2" layoutX="309.0" layoutY="62.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <TextField fx:id="venEmail" layoutX="593.0" layoutY="105.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
-                                    <TextField fx:id="venAdd" layoutX="310.0" layoutY="148.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="55.0" prefWidth="443.0" />
+                                    <TextArea fx:id="venAdd" layoutX="310.0" layoutY="149.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="442.0" />
                                     <Label layoutX="809.0" layoutY="68.0" text="تليفون" />
                                     <Label layoutX="791.0" layoutY="25.0" text="كود المورد" />
                                     <Line endX="920.0" opacity="0.0" startX="30.0" />
@@ -60,19 +60,19 @@
                                     <TextField fx:id="openDebit" layoutX="309.0" layoutY="52.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Label layoutX="773.0" layoutY="58.0" text="رصيد دائن أول" />
                                     <Label layoutX="763.0" layoutY="15.0" text="الشخص المسؤول" />
-                                    <TextField layoutX="593.0" layoutY="95.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="companyName" layoutX="593.0" layoutY="95.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Line endX="920.0" opacity="0.0" startX="30.0" />
                                     <Label layoutX="515.0" layoutY="15.0" text="تليفون" />
                                     <Label layoutX="477.0" layoutY="58.0" text="رصيد مدين أول" />
-                                    <TextField layoutX="310.0" layoutY="95.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="maxBalance" layoutX="310.0" layoutY="95.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Label layoutX="495.0" layoutY="101.0" text="حد الإئتمان" />
-                                    <TextField layoutX="689.0" layoutY="138.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="29.0" prefWidth="64.0" />
                                     <Label layoutX="492.0" layoutY="144.0" text="نوع المعاملة" />
-                                    <ComboBox layoutX="594.0" layoutY="138.0" prefHeight="29.0" prefWidth="92.0" />
-                                    <ComboBox layoutX="309.0" layoutY="140.0" prefHeight="29.0" prefWidth="160.0" />
-                                    <TextField layoutX="598.0" layoutY="182.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="29.0" prefWidth="156.0" />
                                     <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="775.0" layoutY="188.0" text="حسابه الرئيسي" textAlignment="RIGHT" />
-                                    <ComboBox layoutX="310.0" layoutY="182.0" prefHeight="29.0" prefWidth="160.0" />
+                                    <ComboBox fx:id="zoneCombo" layoutX="648.0" layoutY="138.0" prefHeight="29.0" prefWidth="105.0" />
+                                    <ComboBox fx:id="treatmentType" layoutX="309.0" layoutY="140.0" prefHeight="29.0" prefWidth="160.0" />
+                                    <ComboBox fx:id="accCombo" layoutX="593.0" layoutY="182.0" prefHeight="29.0" prefWidth="160.0" />
+                                    <TextField fx:id="zoneCode" layoutX="593.0" layoutY="138.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="29.0" prefWidth="51.0" />
+                                    <TextField fx:id="accCode" editable="false" layoutX="311.0" layoutY="182.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="29.0" prefWidth="156.0" />
                                  </children>
                               </AnchorPane>
                            </content>

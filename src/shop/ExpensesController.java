@@ -74,6 +74,7 @@ public class ExpensesController implements Initializable {
     TextField mainAccount;
     
     private ObservableList<Expences> filteredData = FXCollections.observableArrayList();
+        ObservableList<Charts> chartsA = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -121,6 +122,13 @@ public class ExpensesController implements Initializable {
                     Expences c = (Expences) selectionModel.getSelectedItem();
                     expCode.setText(c.getExpenceId().toString());
                     expName.setText(c.getExpenceName());
+                    mainAccount.setText(c.getCharts().getAccId().toString());
+                    for (Charts object : chartsA) {
+                        if(object.getAccId().intValue() == c.getCharts().getAccId().intValue()){
+                            mainAccountCombo.setValue(object);
+                            break;
+                        }
+                    }
                     TablePosition tablePosition = (TablePosition) selectedCells.get(0);
 
                     String st = tablePosition.getTableView().getSelectionModel().getTableView().getId();
@@ -138,7 +146,7 @@ public class ExpensesController implements Initializable {
         
         ChartDAO chartDAO = new ChartDAO();
         final List<Charts> charts = chartDAO.getAllCharts();
-        ObservableList chartsA = FXCollections.observableList(charts);
+        chartsA.addAll(charts);
         mainAccountCombo.setCellFactory(new Callback<ListView<Charts>,ListCell<Charts>>(){
  
             @Override
@@ -264,7 +272,7 @@ public class ExpensesController implements Initializable {
     public void save(int operation) {
         ExpenceDAO expenceDAO = new ExpenceDAO();
         if (operation == 1) {
-            int id = expenceDAO.insertExpence(Integer.parseInt(expCode.getText()), 1, 0, expName.getText());
+            int id = expenceDAO.insertExpence(Integer.parseInt(expCode.getText()), 1, Integer.valueOf(mainAccount.getText()), expName.getText());
             Expences expences = expenceDAO.getExpenceById(id);
             list.add(expences);
             //expTable.setItems(list);
@@ -273,7 +281,7 @@ public class ExpensesController implements Initializable {
             updateFilteredData();
             clearFields();
         } else if (operation == 2) {
-            expenceDAO.updateExpence(Integer.valueOf(expCode.getText()), 1, 0, expName.getText());
+            expenceDAO.updateExpence(Integer.valueOf(expCode.getText()), 1, Integer.valueOf(mainAccount.getText()), expName.getText());
             expTable.getSelectionModel().getSelectedItem().setExpenceName(expName.getText());
             updateFilteredData();
         }
@@ -438,12 +446,15 @@ public class ExpensesController implements Initializable {
     private void clearFields() {
         this.expCode.setText("");
         this.expName.setText("");
+        this.mainAccount.setText("");
+        this.mainAccountCombo.setValue(null);
+        mainAccountCombo.hide();
     }
       private <T> void filterItems(String filter, ComboBox<Charts> comboBox,
       List<Charts> items) {
     List<Charts> filteredItems = new ArrayList<>();
     for (Charts item : items) {
-      if (item.getAccName().toString().toLowerCase().startsWith(filter.toLowerCase())) {
+      if (item.getAccName().toString().toLowerCase().indexOf(filter.toLowerCase()) != -1) {
         filteredItems.add(item);
       }
     }

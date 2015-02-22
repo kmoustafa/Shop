@@ -136,8 +136,12 @@ public class Employees  implements java.io.Serializable {
         this.hireDate = hireDate;
     }
 
-    
+    @Override
+    public String toString() {
+        return this.empName; //To change body of generated methods, choose Tools | Templates.
+    }
 
+    
 
 }
 

@@ -51,6 +51,11 @@ public class Units  implements java.io.Serializable {
         this.itemses = itemses;
     }
 
+    @Override
+    public String toString() {
+        return this.unitName; //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 

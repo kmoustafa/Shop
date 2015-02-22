@@ -51,6 +51,11 @@ public class Sections  implements java.io.Serializable {
         this.itemses = itemses;
     }
 
+    @Override
+    public String toString() {
+        return this.sectionName; //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 

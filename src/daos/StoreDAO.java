@@ -11,6 +11,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -35,24 +36,25 @@ public class StoreDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertStore(int userId, int empId, int isMain, String storePhone, String storeAdd, String storeName){
+    public int insertStore(int userId, int empId, int isMain, String storePhone, String storeAdd, String storeName, int storeId){
         int status = 0;
         
                  try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_stores\" ( ?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_stores\" ( ?,?,?,?,?,?,?,? ) } ");
             proc.setInt(1, userId);
             proc.setInt(2,empId);
             proc.setInt(3, isMain);
             proc.setString(4, storePhone);
             proc.setString(5, storeAdd);
-            proc.setString(6, storeName);          
-            proc.registerOutParameter(7, java.sql.Types.NUMERIC);
+            proc.setString(6, storeName); 
+            proc.setInt(7, storeId);
+            proc.registerOutParameter(8, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(7);
+            status = proc.getInt(8);
             
             proc.close();
             connection.close();
@@ -175,7 +177,7 @@ public class StoreDAO {
                   UserDAO userDAO = new UserDAO();
                   Users user = userDAO.getUserById(r.getInt("USER_ID"));
                   b.setUsers(user);
-                  
+                  stores.add(b);
               }
             proc.close();
             connection.close();
@@ -185,4 +187,26 @@ public class StoreDAO {
         }
         return stores;
     }
+     public int getLastIndex(){
+        int lastIndex = 0;
+            try {
+            if(connection == null || connection.isClosed())
+                connection = DBHandler.connect();
+                Statement proc = connection.createStatement();
+                
+            
+                ResultSet r =      proc.executeQuery("SELECT MAX(STORE_ID) AS NEXTVAL FROM STORES");
+                  
+              if(r.next()){
+                  
+                  lastIndex = r.getInt("NEXTVAL");
+                  
+              }
+            proc.close();
+            connection.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(CostCenterDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return lastIndex;
+    }        
 }

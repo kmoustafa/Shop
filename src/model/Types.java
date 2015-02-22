@@ -51,6 +51,11 @@ public class Types  implements java.io.Serializable {
         this.itemses = itemses;
     }
 
+    @Override
+    public String toString() {
+        return this.typeName; //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 

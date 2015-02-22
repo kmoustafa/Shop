@@ -157,8 +157,8 @@ public class MainShopController implements Initializable {
         Users u = userDAO.login(userName.getText(), password.getText());
         if (u != null) {
             btnShow.setText("تسجيل خروج");
-            root.setVisible(false);
-            tabPane.setVisible(true);
+            // root.setVisible(false);
+            //tabPane.setVisible(true);
             isLoggedIn = true;
         } else {
             isLoggedIn = false;
@@ -168,7 +168,7 @@ public class MainShopController implements Initializable {
 
     @FXML
     private void handleMenuAction(ActionEvent event) {
-                    Tab tab = new Tab();
+        Tab tab = new Tab();
 
         try {
             //    if (isLoggedIn) {
@@ -229,7 +229,12 @@ public class MainShopController implements Initializable {
                     break;
                 case "customersMenu":
                     tab = new Tab("العملاء");
-                    tab.setContent(FXMLLoader.load(this.getClass().getResource("Customer.fxml")));
+ tab.setId("Customers");
+                    loader = new FXMLLoader(this.getClass().getResource("Customer.fxml"));
+                    tab.setContent(loader.load());
+                    ((CustomerController) loader.getController()).fillTree();
+                    tab.setContextMenu(getContextMenu());
+
                     this.tabPane.getTabs().add(tab);
                     break;
                 case "salesMenu":
@@ -273,7 +278,11 @@ public class MainShopController implements Initializable {
                     break;
                 case "storesMenu":
                     tab = new Tab("المخازن");
-                    tab.setContent(FXMLLoader.load(this.getClass().getResource("Stores.fxml")));
+ tab.setId("Stores");
+                    loader = new FXMLLoader(this.getClass().getResource("Stores.fxml"));
+                    tab.setContent(loader.load());
+                    ((StoresController) loader.getController()).fillTree();
+                    tab.setContextMenu(getContextMenu());
                     this.tabPane.getTabs().add(tab);
                     break;
                 case "sizesMenu":
@@ -305,7 +314,7 @@ public class MainShopController implements Initializable {
                     break;
                 case "typesMenu":
                     tab = new Tab("الأنواع");
- tab.setId("Types");
+                    tab.setId("Types");
                     loader = new FXMLLoader(this.getClass().getResource("Types.fxml"));
                     tab.setContent(loader.load());
                     ((TypesController) loader.getController()).fillTable();
@@ -314,7 +323,7 @@ public class MainShopController implements Initializable {
                     break;
                 case "unitsMenu":
                     tab = new Tab("الوحدات");
- tab.setId("Units");
+                    tab.setId("Units");
                     loader = new FXMLLoader(this.getClass().getResource("Units.fxml"));
                     tab.setContent(loader.load());
                     ((UnitsController) loader.getController()).fillTable();
@@ -323,7 +332,11 @@ public class MainShopController implements Initializable {
                     break;
                 case "itemsMenu":
                     tab = new Tab("الأصناف");
-                    tab.setContent(FXMLLoader.load(this.getClass().getResource("Items.fxml")));
+                     tab.setId("Items");
+                    loader = new FXMLLoader(this.getClass().getResource("Items.fxml"));
+                    tab.setContent(loader.load());
+                   // ((ItemsController) loader.getController()).fillTable();
+                    tab.setContextMenu(getContextMenu());
                     this.tabPane.getTabs().add(tab);
                     break;
                 case "chartsMenu":
@@ -441,7 +454,7 @@ public class MainShopController implements Initializable {
                     break;
 
             }
-           this.tabPane.getSelectionModel().select(tab);
+            this.tabPane.getSelectionModel().select(tab);
             //    }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -451,137 +464,165 @@ public class MainShopController implements Initializable {
 
     @FXML
     private void handleSave(MouseEvent event) {
-        if (isLoggedIn) {
+        // if (isLoggedIn) {
 
-            String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
-            switch (name) {
-                case "CostCenters":
-                    name += ".fxml";
+        String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
+        switch (name) {
+            case "CostCenters":
+                name += ".fxml";
 //                                 CostCentersController ccc = (CostCentersController)loadController(name);
-                    CostCentersController ccc = CostCentersController.getInstance();
+                CostCentersController ccc = CostCentersController.getInstance();
 
-                    ccc.save(operation);
-                    break;
-                case "Expenses":
-                    ExpensesController controller = ExpensesController.getInstance();
-                    controller.save(operation);
-                    break;
-                case "Zones":
-                    ZonesController zcontroller = ZonesController.getInstance();
-                    zcontroller.save(operation);
-                    break;
-                case "Vendors":
-                    VendorsController vcontroller = VendorsController.getInstance();
-                    vcontroller.save();
-                    break;
-                case "Banks":
-                    BanksController bcontroller = BanksController.getInstance();
-                    bcontroller.save();
-                    break;
-                case "Employees":
-                    EmployeesController empcontroller = EmployeesController.getInstance();
-                    empcontroller.save();
-                    break;
-                case "Departments":
-                    DepartmentsController depcontroller = DepartmentsController.getInstance();
-                    depcontroller.save(operation);
-                    break;
-                case "Charts":
-                    ChartsController chartcontroller = ChartsController.getInstance();
-                    chartcontroller.save(operation);
-                    break;
-                case "Colors":
-                    ColorsController colorsController = ColorsController.getInstance();
-                    colorsController.save(operation);
-                    break;
-                case "Sections":
-                    SectionsController sectionsController = SectionsController.getInstance();
-                    sectionsController.save(operation);
-                    break;
-                case "Sizes":
-                    SizesController sizesController = SizesController.getInstance();
-                    sizesController.save(operation);
-                    break;
-                case "Groups":
-                    GroupsController groupsController = GroupsController.getInstance();
-                    groupsController.save(operation);
-                    break;    
-                                    case "Types":
-                    TypesController typesController = TypesController.getInstance();
-                    typesController.save(operation);
-                    break;  
-                                                                            case "Units":
-                    UnitsController unitsController = UnitsController.getInstance();
-                    unitsController.save(operation);
-                    break;  
-            }
+                ccc.save(operation);
+                break;
+            case "Expenses":
+                ExpensesController controller = ExpensesController.getInstance();
+                controller.save(operation);
+                break;
+            case "Zones":
+                ZonesController zcontroller = ZonesController.getInstance();
+                zcontroller.save(operation);
+                break;
+            case "Vendors":
+                VendorsController vcontroller = VendorsController.getInstance();
+                vcontroller.save(operation);
+                break;
+            case "Banks":
+                BanksController bcontroller = BanksController.getInstance();
+                bcontroller.save(operation);
+                break;
+            case "Employees":
+                EmployeesController empcontroller = EmployeesController.getInstance();
+                empcontroller.save(operation);
+                break;
+            case "Departments":
+                DepartmentsController depcontroller = DepartmentsController.getInstance();
+                depcontroller.save(operation);
+                break;
+            case "Charts":
+                ChartsController chartcontroller = ChartsController.getInstance();
+                chartcontroller.save(operation);
+                break;
+            case "Colors":
+                ColorsController colorsController = ColorsController.getInstance();
+                colorsController.save(operation);
+                break;
+            case "Sections":
+                SectionsController sectionsController = SectionsController.getInstance();
+                sectionsController.save(operation);
+                break;
+            case "Sizes":
+                SizesController sizesController = SizesController.getInstance();
+                sizesController.save(operation);
+                break;
+            case "Groups":
+                GroupsController groupsController = GroupsController.getInstance();
+                groupsController.save(operation);
+                break;
+            case "Types":
+                TypesController typesController = TypesController.getInstance();
+                typesController.save(operation);
+                break;
+            case "Units":
+                UnitsController unitsController = UnitsController.getInstance();
+                unitsController.save(operation);
+                break;
+            case "Customers":
+                CustomerController customerController = CustomerController.getInstance();
+                customerController.save(operation);
+                break;
+            case "Stores":
+                StoresController storesController = StoresController.getInstance();
+                storesController.save(operation);
+                break;    
+            case "Items":
+                ItemsController itemsController = ItemsController.getInstance();
+                itemsController.save(operation);
+                break;                 
         }
+        // }
         operation = 0;
     }
 
     @FXML
     private void handleUpdate(MouseEvent event) {
         operation = 2;
-        if (isLoggedIn) {
+        //if (isLoggedIn) {
 
-            String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
-            switch (name) {
-                case "CostCenters":
-                    name += ".fxml";
+        String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
+        switch (name) {
+            case "CostCenters":
+                name += ".fxml";
 //                                 CostCentersController ccc = (CostCentersController)loadController(name);
-                    CostCentersController ccc = CostCentersController.getInstance();
-                    ccc.update();
-                    break;
-                case "Expenses":
-                    ExpensesController controller = ExpensesController.getInstance();
-                    controller.update();
-                    break;
-                case "Zones":
-                    ZonesController zcontroller = ZonesController.getInstance();
-                    zcontroller.update();
-                    break;
-                case "Banks":
-                    BanksController bcontroller = BanksController.getInstance();
-                    bcontroller.update();
-                    break;
-                case "Employees":
-                    EmployeesController empcontroller = EmployeesController.getInstance();
-                    empcontroller.update();
-                    break;
-                case "Departments":
-                    DepartmentsController depcontroller = DepartmentsController.getInstance();
-                    depcontroller.update();
-                    break;
-                case "Charts":
-                    ChartsController chartcontroller = ChartsController.getInstance();
-                    chartcontroller.update();
-                    break;
-                case "Colors":
-                    ColorsController colorsController = ColorsController.getInstance();
-                    colorsController.update();
-                    break;
-                case "Sections":
-                    SectionsController sectionsController = SectionsController.getInstance();
-                    sectionsController.update();
-                    break;
-                case "Sizes":
-                    SizesController sizesController = SizesController.getInstance();
-                    sizesController.update();
-                    break;
-                case "Groups":
-                    GroupsController groupsController = GroupsController.getInstance();
-                    groupsController.update();
-                    break;     
-                                    case "Types":
-                    TypesController typesController = TypesController.getInstance();
-                    typesController.update();
-                    break;    
-                                                                                                                    case "Units":
-                    UnitsController unitsController = UnitsController.getInstance();
-                    unitsController.update();
-                    break;
-            }
+                CostCentersController ccc = CostCentersController.getInstance();
+                ccc.update();
+                break;
+            case "Expenses":
+                ExpensesController controller = ExpensesController.getInstance();
+                controller.update();
+                break;
+            case "Zones":
+                ZonesController zcontroller = ZonesController.getInstance();
+                zcontroller.update();
+                break;
+            case "Vendors":
+                VendorsController vcontroller = VendorsController.getInstance();
+                vcontroller.update();
+                break;
+            case "Banks":
+                BanksController bcontroller = BanksController.getInstance();
+                bcontroller.update();
+                break;
+            case "Employees":
+                EmployeesController empcontroller = EmployeesController.getInstance();
+                empcontroller.update();
+                break;
+            case "Departments":
+                DepartmentsController depcontroller = DepartmentsController.getInstance();
+                depcontroller.update();
+                break;
+            case "Charts":
+                ChartsController chartcontroller = ChartsController.getInstance();
+                chartcontroller.update();
+                break;
+            case "Colors":
+                ColorsController colorsController = ColorsController.getInstance();
+                colorsController.update();
+                break;
+            case "Sections":
+                SectionsController sectionsController = SectionsController.getInstance();
+                sectionsController.update();
+                break;
+            case "Sizes":
+                SizesController sizesController = SizesController.getInstance();
+                sizesController.update();
+                break;
+            case "Groups":
+                GroupsController groupsController = GroupsController.getInstance();
+                groupsController.update();
+                break;
+            case "Types":
+                TypesController typesController = TypesController.getInstance();
+                typesController.update();
+                break;
+            case "Units":
+                UnitsController unitsController = UnitsController.getInstance();
+                unitsController.update();
+                break;
+            case "Customers":
+                CustomerController customerController = CustomerController.getInstance();
+                customerController.update();
+                break; 
+            case "Stores":
+                StoresController storesController = StoresController.getInstance();
+                storesController.update();
+                break;
+            case "Items":
+                ItemsController itemsController = ItemsController.getInstance();
+                itemsController.update();
+                break;                  
         }
+        //}
         //  operation = 0;
 
     }
@@ -589,138 +630,162 @@ public class MainShopController implements Initializable {
     @FXML
     private void handleNew(MouseEvent event) {
         operation = 1;
-        if (isLoggedIn) {
+        //if (isLoggedIn) {
 
-            String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
-            switch (name) {
-                case "CostCenters":
-                    name += ".fxml";
+        String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
+        switch (name) {
+            case "CostCenters":
+                name += ".fxml";
 //              CostCentersController ccc = (CostCentersController)loadController(name);
-                    CostCentersController ccc = CostCentersController.getInstance();
+                CostCentersController ccc = CostCentersController.getInstance();
 
-                    ccc.handleNew();
-                    break;
-                case "Expenses":
-                    ExpensesController controller = ExpensesController.getInstance();
-                    controller.handleNew();
-                    break;
-                case "Zones":
-                    ZonesController zcontroller = ZonesController.getInstance();
-                    zcontroller.handleNew();
-                    break;
-                case "Vendors":
-                    VendorsController vcontroller = VendorsController.getInstance();
-                    vcontroller.handleNew();
-                    break;
-                case "Banks":
-                    BanksController bcontroller = BanksController.getInstance();
-                    bcontroller.handleNew();
-                    break;
-                case "Employees":
-                    EmployeesController empcontroller = EmployeesController.getInstance();
-                    empcontroller.handleNew();
-                    break;
-                case "Departments":
-                    DepartmentsController depcontroller = DepartmentsController.getInstance();
-                    depcontroller.handleNew();
-                    break;
-                case "Charts":
-                    ChartsController chartcontroller = ChartsController.getInstance();
-                    chartcontroller.handleNew();
-                    break;
-                case "Colors":
-                    ColorsController colorsController = ColorsController.getInstance();
-                    colorsController.handleNew();
-                    break;
-                case "Sections":
-                    SectionsController sectionsController = SectionsController.getInstance();
-                    sectionsController.handleNew();
-                    break;
-                case "Sizes":
-                    SizesController sizesController = SizesController.getInstance();
-                    sizesController.handleNew();
-                    break;
-                case "Groups":
-                    GroupsController groupsController = GroupsController.getInstance();
-                    groupsController.handleNew();
-                    break;       
-                                    case "Types":
-                    TypesController typesController = TypesController.getInstance();
-                    typesController.handleNew();
-                    break;      
-                                                                            case "Units":
-                    UnitsController unitsController = UnitsController.getInstance();
-                    unitsController.handleNew();
-                    break;                                        
-            }
+                ccc.handleNew();
+                break;
+            case "Expenses":
+                ExpensesController controller = ExpensesController.getInstance();
+                controller.handleNew();
+                break;
+            case "Zones":
+                ZonesController zcontroller = ZonesController.getInstance();
+                zcontroller.handleNew();
+                break;
+            case "Vendors":
+                VendorsController vcontroller = VendorsController.getInstance();
+                vcontroller.handleNew();
+                break;
+            case "Banks":
+                BanksController bcontroller = BanksController.getInstance();
+                bcontroller.handleNew();
+                break;
+            case "Employees":
+                EmployeesController empcontroller = EmployeesController.getInstance();
+                empcontroller.handleNew();
+                break;
+            case "Departments":
+                DepartmentsController depcontroller = DepartmentsController.getInstance();
+                depcontroller.handleNew();
+                break;
+            case "Charts":
+                ChartsController chartcontroller = ChartsController.getInstance();
+                chartcontroller.handleNew();
+                break;
+            case "Colors":
+                ColorsController colorsController = ColorsController.getInstance();
+                colorsController.handleNew();
+                break;
+            case "Sections":
+                SectionsController sectionsController = SectionsController.getInstance();
+                sectionsController.handleNew();
+                break;
+            case "Sizes":
+                SizesController sizesController = SizesController.getInstance();
+                sizesController.handleNew();
+                break;
+            case "Groups":
+                GroupsController groupsController = GroupsController.getInstance();
+                groupsController.handleNew();
+                break;
+            case "Types":
+                TypesController typesController = TypesController.getInstance();
+                typesController.handleNew();
+                break;
+            case "Units":
+                UnitsController unitsController = UnitsController.getInstance();
+                unitsController.handleNew();
+                break;
+            case "Customers":
+                CustomerController customerController = CustomerController.getInstance();
+                customerController.handleNew();
+                break;  
+            case "Stores":
+                StoresController storesController = StoresController.getInstance();
+                storesController.handleNew();
+                break; 
+            case "Items":
+                ItemsController itemsController = ItemsController.getInstance();
+                itemsController.handleNew();
+                break;                   
         }
+        //}
         // operation = 0;
 
     }
 
     @FXML
     private void handleDelete(MouseEvent event) {
-        if (isLoggedIn) {
+        //if (isLoggedIn) {
 
-            String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
-            switch (name) {
-                case "CostCenters":
-                    name += ".fxml";
+        String name = this.tabPane.getSelectionModel().getSelectedItem().getId();
+        switch (name) {
+            case "CostCenters":
+                name += ".fxml";
 //              CostCentersController ccc = (CostCentersController)loadController(name);
-                    CostCentersController ccc = CostCentersController.getInstance();
+                CostCentersController ccc = CostCentersController.getInstance();
 
-                    ccc.delete();
-                    break;
-                case "Expenses":
-                    ExpensesController controller = ExpensesController.getInstance();
-                    controller.delete();
-                    break;
-                case "Zones":
-                    ZonesController zcontroller = ZonesController.getInstance();
-                    zcontroller.delete();
-                    break;
-                case "Banks":
-                    BanksController bcontroller = BanksController.getInstance();
-                    bcontroller.delete();
-                    break;
-                case "Employees":
-                    EmployeesController empcontroller = EmployeesController.getInstance();
-                    empcontroller.delete();
-                    break;
-                case "Departments":
-                    DepartmentsController depcontroller = DepartmentsController.getInstance();
-                    depcontroller.delete();
-                    break;
-                case "Charts":
-                    ChartsController chartcontroller = ChartsController.getInstance();
-                    chartcontroller.delete();
-                    break;
-                case "Colors":
-                    ColorsController colorsController = ColorsController.getInstance();
-                    colorsController.delete();
-                    break;
-                case "Sections":
-                    SectionsController sectionsController = SectionsController.getInstance();
-                    sectionsController.delete();
-                    break;
-                case "Sizes":
-                    SizesController sizesController = SizesController.getInstance();
-                    sizesController.delete();
-                    break;
-                case "Groups":
-                    GroupsController groupsController = GroupsController.getInstance();
-                    groupsController.delete();
-                    break;         
-                                    case "Types":
-                    TypesController typesController = TypesController.getInstance();
-                    typesController.delete();
-                    break;     
-                                                                            case "Units":
-                    UnitsController unitsController = UnitsController.getInstance();
-                    unitsController.delete();
-                    break;                                        
-            }
+                ccc.delete();
+                break;
+            case "Expenses":
+                ExpensesController controller = ExpensesController.getInstance();
+                controller.delete();
+                break;
+            case "Zones":
+                ZonesController zcontroller = ZonesController.getInstance();
+                zcontroller.delete();
+                break;
+            case "Vendors":
+                VendorsController vcontroller = VendorsController.getInstance();
+                vcontroller.delete();
+                break;
+            case "Banks":
+                BanksController bcontroller = BanksController.getInstance();
+                bcontroller.delete();
+                break;
+            case "Employees":
+                EmployeesController empcontroller = EmployeesController.getInstance();
+                empcontroller.delete();
+                break;
+            case "Departments":
+                DepartmentsController depcontroller = DepartmentsController.getInstance();
+                depcontroller.delete();
+                break;
+            case "Charts":
+                ChartsController chartcontroller = ChartsController.getInstance();
+                chartcontroller.delete();
+                break;
+            case "Colors":
+                ColorsController colorsController = ColorsController.getInstance();
+                colorsController.delete();
+                break;
+            case "Sections":
+                SectionsController sectionsController = SectionsController.getInstance();
+                sectionsController.delete();
+                break;
+            case "Sizes":
+                SizesController sizesController = SizesController.getInstance();
+                sizesController.delete();
+                break;
+            case "Groups":
+                GroupsController groupsController = GroupsController.getInstance();
+                groupsController.delete();
+                break;
+            case "Types":
+                TypesController typesController = TypesController.getInstance();
+                typesController.delete();
+                break;
+            case "Units":
+                UnitsController unitsController = UnitsController.getInstance();
+                unitsController.delete();
+                break;
+            case "Customers":
+                CustomerController customerController = CustomerController.getInstance();
+                customerController.delete();
+                break;   
+            case "Stores":
+                StoresController storesController = StoresController.getInstance();
+                storesController.delete();
+                break;                 
         }
+        //}
     }
 
     @Override
@@ -747,7 +812,7 @@ public class MainShopController implements Initializable {
         Tooltip t9 = new Tooltip("طباعة");
         t9.install(printImg, t9);
         isLoggedIn = false;
-        tabPane.setVisible(false);
+        // tabPane.setVisible(false);
         root.setVisible(false);
 
     }

@@ -20,7 +20,7 @@
           <AnchorPane maxWidth="952.0" minHeight="0.0" minWidth="555.0" prefHeight="550.0" prefWidth="952.0" styleClass="rounded">
                <children>
                   <Label layoutX="900.0" layoutY="56.0" text="الكود" />
-                  <TextField fx:id="empCode" layoutX="651.0" layoutY="52.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                  <TextField fx:id="empCode" editable="false" layoutX="651.0" layoutY="52.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                   <Line endX="920.0" opacity="0.0" startX="30.0" />
                   <TextField fx:id="empName" layoutX="651.0" layoutY="92.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                   <Label layoutX="899.0" layoutY="96.0" text="الإسم" />
@@ -35,8 +35,8 @@
                   <DatePicker fx:id="hireDate" layoutX="578.0" layoutY="294.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="233.0" />
                   <Label layoutX="873.0" layoutY="296.0" text="تاريخ التعين" />
                   <Label layoutX="861.0" layoutY="343.0" text="حسابه الرئيسي" />
-                  <TextField layoutX="698.0" layoutY="339.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="114.0" />
-                  <ComboBox layoutX="577.0" layoutY="339.0" prefHeight="25.0" prefWidth="114.0" />
+                  <TextField fx:id="mainAccount" layoutX="578.0" layoutY="339.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="114.0" />
+                  <ComboBox fx:id="mainAccountCombo" layoutX="695.0" layoutY="339.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="114.0" />
                   <Label layoutX="883.0" layoutY="393.0" text="ملاحظات" />
                   <TextArea fx:id="notes" layoutX="311.0" layoutY="390.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="125.0" prefWidth="500.0" />
                </children></AnchorPane>

@@ -51,6 +51,11 @@ public class Groups  implements java.io.Serializable {
         this.itemses = itemses;
     }
 
+    @Override
+    public String toString() {
+        return this.groupName; //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 
