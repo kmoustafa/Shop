@@ -83,7 +83,7 @@ public class ItemSerialDAO {
           try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"update_items_serials\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"update_items_serials\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setInt(1, itemserialId);
             proc.setString(2, barCode);
             proc.setInt(3,itemId );

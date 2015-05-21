@@ -41,7 +41,7 @@ public class ItemDAO {
         connection = DBHandler.connect();
     }
     
-    public int insertItem(int productType, Blob itemPic, int userId, int unitId, int sectionId, int groupId, int typeId, int personType, int personId, String itemNotes, String itemName, int itemId ){
+    public int insertItem(int productType, String itemPic, int userId, int unitId, int sectionId, int groupId, int typeId, int personType, int personId, String itemNotes, String itemName, int itemId ){
         int status = 0;
         
            try {
@@ -49,7 +49,7 @@ public class ItemDAO {
                 connection = DBHandler.connect();
             CallableStatement proc = connection.prepareCall("{ call \"insert_items\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setInt(1, productType);
-            proc.setBlob(2,itemPic );
+            proc.setString(2,itemPic );
             proc.setInt(3, userId);
             proc.setInt(4, unitId);
             proc.setInt(5, sectionId);
@@ -75,7 +75,7 @@ public class ItemDAO {
         return status;
     }
     
-    public int updateItem(int itemId,int productType, Blob itemPic, int userId, int unitId, int sectionId, int groupId, int typeId, int personType, int personId, String itemNotes, String itemName){
+    public int updateItem(int itemId,int productType, String itemPic, int userId, int unitId, int sectionId, int groupId, int typeId, int personType, int personId, String itemNotes, String itemName){
         int status = 0;
                    try {
             if(connection == null || connection.isClosed())
@@ -83,7 +83,7 @@ public class ItemDAO {
             CallableStatement proc = connection.prepareCall("{ call \"update_items\" ( ?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
             proc.setInt(1, itemId);
             proc.setInt(2, productType);
-            proc.setBlob(3,itemPic );
+            proc.setString(3,itemPic );
             proc.setInt(4, userId);
             proc.setInt(5, unitId);
             proc.setInt(6, sectionId);
@@ -151,7 +151,7 @@ public class ItemDAO {
                   b.setItemId(new BigDecimal(itemId));
                   b.setItemName(r.getString("ITEM_NAME"));
                   b.setItemNotes(r.getString("ITEM_NOTES"));
-                  b.setItemPic(r.getBlob("ITEM_PIC"));
+                  b.setItemPic(r.getString("ITEM_PIC"));
                   PersonDAO personDAO = new PersonDAO();
                   Persons p = personDAO.getPersonById(r.getInt("PERSON_ID"));
                   b.setPersons(p);
@@ -203,7 +203,7 @@ public class ItemDAO {
                   b.setItemId(new BigDecimal(r.getInt("ITEM_ID")));
                   b.setItemName(r.getString("ITEM_NAME"));
                   b.setItemNotes(r.getString("ITEM_NOTES"));
-                  b.setItemPic(r.getBlob("ITEM_PIC"));
+                  b.setItemPic(r.getString("ITEM_PIC"));
                   PersonDAO personDAO = new PersonDAO();
                   Persons p = personDAO.getPersonById(r.getInt("PERSON_ID"));
                   b.setPersons(p);

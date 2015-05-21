@@ -25,36 +25,36 @@
                                     <Label layoutX="1166.0" layoutY="80.0" text="المجموعة" />
                                     <Label layoutX="723.0" layoutY="38.0" text="القسم" />
                                     <Label layoutX="1161.0" layoutY="36.0" text="إسم المورد" />
-                                    <TextField fx:id="groupCode" editable="false" layoutX="943.0" layoutY="74.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
-                                    <TextField fx:id="venCode" editable="false" layoutX="943.0" layoutY="30.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="29.0" prefWidth="160.0" />
                                     <Line endX="920.0" opacity="0.0" startX="30.0" />
-                                    <TextField fx:id="secCode" editable="false" layoutX="473.0" layoutY="32.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <ComboBox fx:id="venCombo" layoutX="776.0" layoutY="30.0" prefWidth="150.0" />
                                     <ComboBox fx:id="secCombo" layoutX="306.0" layoutY="33.0" prefWidth="150.0" />
                                     <ComboBox fx:id="groupCombo" layoutX="776.0" layoutY="75.0" prefWidth="150.0" />
                                     <ComboBox fx:id="typeCombo" layoutX="306.0" layoutY="79.0" prefWidth="150.0" />
-                                    <TextField fx:id="typeCode" editable="false" layoutX="473.0" layoutY="77.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Label layoutX="724.0" layoutY="83.0" text="النوع" />
                                     <Label layoutX="1179.0" layoutY="127.0" text="الوحدة" />
-                                    <TextField fx:id="unitCode" editable="false" layoutX="943.0" layoutY="120.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <ComboBox fx:id="unitCombo" layoutX="776.0" layoutY="120.0" prefWidth="150.0" />
                                     <ComboBox layoutX="306.0" layoutY="124.0" prefWidth="150.0" />
-                                    <TextField editable="false" layoutX="473.0" layoutY="122.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="venCode" editable="false" layoutX="943.0" layoutY="30.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="29.0" prefWidth="160.0" />
+                                    <TextField fx:id="secCode" editable="false" layoutX="473.0" layoutY="32.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="groupCode" editable="false" layoutX="943.0" layoutY="74.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="typeCode" editable="false" layoutX="473.0" layoutY="77.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="unitCode" editable="false" layoutX="943.0" layoutY="120.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Label layoutX="686.0" layoutY="128.0" text="حسابه الرئيسي" />
                                     <Label layoutX="1175.0" layoutY="167.0" text="التسعير" />
+                                    <TextField editable="false" layoutX="473.0" layoutY="122.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="100.0" layoutX="298.0" layoutY="196.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="923.0" />
                                     <TextField fx:id="cost" layoutX="933.0" layoutY="213.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="percentage" layoutX="623.0" layoutY="213.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
+                                    <TextField fx:id="reqQuant" layoutX="313.0" layoutY="213.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Label layoutX="1180.0" layoutY="220.0" text="التكلفة" />
                                     <Label layoutX="1156.0" layoutY="260.0" text="سعر البيع 1" />
                                     <TextField fx:id="sales1" layoutX="933.0" layoutY="253.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <TextField fx:id="sales2" layoutX="623.0" layoutY="253.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Label layoutX="846.0" layoutY="260.0" text="سعر البيع 2" />
                                     <Label layoutX="852.0" layoutY="220.0" text="نسبة الربح" />
-                                    <TextField fx:id="percentage" layoutX="623.0" layoutY="213.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <TextField fx:id="sales3" layoutX="313.0" layoutY="253.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Label layoutX="535.0" layoutY="260.0" text="سعر البيع 3" />
                                     <Label layoutX="546.0" layoutY="220.0" text="حد الطلب" />
-                                    <TextField fx:id="reqQuant" layoutX="313.0" layoutY="213.0" nodeOrientation="RIGHT_TO_LEFT" prefHeight="25.0" prefWidth="160.0" />
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="116.0" layoutX="28.0" layoutY="34.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="229.0" />
                                     <RadioButton fx:id="service" layoutX="167.0" layoutY="82.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="خدمة" />
                                     <RadioButton fx:id="stored" layoutX="161.0" layoutY="48.0" mnemonicParsing="false" nodeOrientation="RIGHT_TO_LEFT" text="مخزون" />

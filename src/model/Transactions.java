@@ -29,7 +29,7 @@ public class Transactions  implements java.io.Serializable {
      private BigDecimal taxPercent;
      private BigDecimal taxValue;
      private Set transactionDetailses = new HashSet(0);
-
+     private String transAttach;
     public Transactions() {
     }
 
@@ -169,6 +169,15 @@ public class Transactions  implements java.io.Serializable {
         this.transactionDetailses = transactionDetailses;
     }
 
+    public String getTransAttach() {
+        return transAttach;
+    }
+
+    public void setTransAttach(String transAttach) {
+        this.transAttach = transAttach;
+    }
+    
+    
 
 
 

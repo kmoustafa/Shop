@@ -22,7 +22,7 @@ public class Items  implements java.io.Serializable {
      private Units units;
      private String itemName;
      private String itemNotes;
-     private Blob itemPic;
+     private String itemPic;
      private Set itemsSerialses = new HashSet(0);
      private BigDecimal productType;
     public Items() {
@@ -32,7 +32,7 @@ public class Items  implements java.io.Serializable {
     public Items(BigDecimal itemId) {
         this.itemId = itemId;
     }
-    public Items(BigDecimal itemId, Users users, Types types, Persons persons, Groups groups, Sections sections, Units units, String itemName, String itemNotes, String barCode, Blob itemPic, Set itemsSerialses, BigDecimal productType) {
+    public Items(BigDecimal itemId, Users users, Types types, Persons persons, Groups groups, Sections sections, Units units, String itemName, String itemNotes, String barCode, String itemPic, Set itemsSerialses, BigDecimal productType) {
        this.itemId = itemId;
        this.users = users;
        this.types = types;
@@ -111,11 +111,11 @@ public class Items  implements java.io.Serializable {
         this.itemNotes = itemNotes;
     }
 
-    public Blob getItemPic() {
+    public String getItemPic() {
         return this.itemPic;
     }
     
-    public void setItemPic(Blob itemPic) {
+    public void setItemPic(String itemPic) {
         this.itemPic = itemPic;
     }
     public Set getItemsSerialses() {

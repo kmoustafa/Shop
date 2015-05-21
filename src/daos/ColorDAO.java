@@ -148,10 +148,12 @@ public class ColorDAO {
               ResultSet r =(ResultSet) proc.getObject(1);
               colors = new ArrayList();
               while(r.next()){
+                  if(r.getInt("COLOR_ID") != 0 ){
                   b = new Colors();
                   b.setColorId(new BigDecimal(r.getInt("COLOR_ID")));
                   b.setColorName(r.getString("COLOR_NAME"));
                   colors.add(b);
+                  }
               }
             proc.close();
             connection.close();

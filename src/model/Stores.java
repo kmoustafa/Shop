@@ -96,6 +96,11 @@ public class Stores  implements java.io.Serializable {
         this.transactionses = transactionses;
     }
 
+    @Override
+    public String toString() {
+        return this.storeName; //To change body of generated methods, choose Tools | Templates.
+    }
+
 
 
 

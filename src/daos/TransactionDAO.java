@@ -46,12 +46,12 @@ public class TransactionDAO {
     }
     
     public int insertTransaction(int transNo, int transType, int userId, int expenseId, int empId, int storeId, int bankId, int personType, int personId, int taxValue, int taxPercent,
-            String transNotes, String transVisa, int transDiscValue, int transDiscPercent, java.sql.Date transDate, int transWSID){
+            String transNotes, String transVisa, int transDiscValue, int transDiscPercent, java.sql.Date transDate, int transWSID, String tarnsAttach){
         int status = 0;
           try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"insert_transaction_details\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"insert_transaction_details\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
 
             proc.setInt(1, userId);
             proc.setInt(2, expenseId);
@@ -70,11 +70,12 @@ public class TransactionDAO {
             proc.setInt(15, transWSID);            
             proc.setInt(16, transType);
             proc.setInt(17, transNo);
-            proc.registerOutParameter(18, java.sql.Types.NUMERIC);
+            proc.setString(18, tarnsAttach);
+            proc.registerOutParameter(19, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(18);
+            status = proc.getInt(19);
             
             proc.close();
             connection.close();
@@ -87,12 +88,12 @@ public class TransactionDAO {
     }
     
     public int updateTransaction(int transNo, int transType, int userId, int expenseId, int empId, int storeId, int bankId, int personType, int personId, int taxValue, int taxPercent,
-            String transNotes, String transVisa, int transDiscValue, int transDiscPercent, java.sql.Date transDate, int transWSID){
+            String transNotes, String transVisa, int transDiscValue, int transDiscPercent, java.sql.Date transDate, int transWSID, String transAttach){
         int status = 0;
                   try {
             if(connection == null || connection.isClosed())
                 connection = DBHandler.connect();
-            CallableStatement proc = connection.prepareCall("{ call \"update_transactions\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
+            CallableStatement proc = connection.prepareCall("{ call \"update_transactions\" ( ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,? ) } ");
 
             proc.setInt(1, userId);
             proc.setInt(2, expenseId);
@@ -111,11 +112,12 @@ public class TransactionDAO {
             proc.setInt(15, transWSID);            
             proc.setInt(16, transType);
             proc.setInt(17, transNo);
-            proc.registerOutParameter(18, java.sql.Types.NUMERIC);
+            proc.setString(18,transAttach);
+            proc.registerOutParameter(19, java.sql.Types.NUMERIC);
             
             proc.execute();
             
-            status = proc.getInt(18);
+            status = proc.getInt(19);
             
             proc.close();
             connection.close();
@@ -191,6 +193,7 @@ public class TransactionDAO {
                   b.setTransDiscValue(new BigDecimal(r.getInt("TRANS_DISC_VALUE")));
                   b.setTransNote(r.getString("TRANS_NOTE"));
                   b.setTransVisa(r.getString("TRANS_VISA"));
+                  b.setTransAttach(r.getString("TRANS_ATTACH"));
                   
                   b.setTransWsid(new BigDecimal(r.getInt("TRANS_WSID")));
                 UserDAO userDAO = new UserDAO();
@@ -245,7 +248,8 @@ public class TransactionDAO {
                   b.setTransDiscValue(new BigDecimal(r.getInt("TRANS_DISC_VALUE")));
                   b.setTransNote(r.getString("TRANS_NOTE"));
                   b.setTransVisa(r.getString("TRANS_VISA"));
-                  
+                                    b.setTransAttach(r.getString("TRANS_ATTACH"));
+
                   b.setTransWsid(new BigDecimal(r.getInt("TRANS_WSID")));
                 UserDAO userDAO = new UserDAO();
                   Users user = userDAO.getUserById(r.getInt("USER_ID"));

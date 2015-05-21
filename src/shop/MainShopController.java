@@ -6,6 +6,7 @@
 package shop;
 
 import daos.UserDAO;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -783,7 +784,11 @@ public class MainShopController implements Initializable {
             case "Stores":
                 StoresController storesController = StoresController.getInstance();
                 storesController.delete();
-                break;                 
+                break;   
+                case "Items":
+                ItemsController itemsController = ItemsController.getInstance();
+                itemsController.delete();
+                break;   
         }
         //}
     }
@@ -814,7 +819,8 @@ public class MainShopController implements Initializable {
         isLoggedIn = false;
         // tabPane.setVisible(false);
         root.setVisible(false);
-
+        File file = new File(MainShopController.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+        System.out.println(file.getParentFile().getParentFile().getAbsolutePath());
     }
 
     public Object loadController(String name) {

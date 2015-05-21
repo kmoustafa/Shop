@@ -25,12 +25,12 @@
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#fbfbfb00" height="124.0" layoutX="988.0" layoutY="396.0" stroke="#229cd0" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="5.0" strokeType="OUTSIDE" strokeWidth="2.0" width="272.0" />
                   <Label layoutX="1179.0" layoutY="367.0" text="معلومات حد المورد" />
                   <ComboBox layoutX="978.0" layoutY="103.0" prefHeight="25.0" prefWidth="74.0" />
-                  <ComboBox layoutX="608.0" layoutY="63.0" prefHeight="25.0" prefWidth="74.0" />
+                  <ComboBox layoutX="596.0" layoutY="63.0" prefHeight="25.0" prefWidth="86.0" />
                   <TextField layoutX="693.0" layoutY="63.0" prefHeight="25.0" prefWidth="74.0" />
                   <Label layoutX="838.0" layoutY="67.0" text="رقم المخزن" />
                   <Label layoutX="835.0" layoutY="107.0" text="رقم الموظف" />
                   <TextField layoutX="693.0" layoutY="103.0" prefHeight="25.0" prefWidth="74.0" />
-                  <ComboBox layoutX="608.0" layoutY="103.0" prefHeight="25.0" prefWidth="74.0" />
+                  <ComboBox layoutX="596.0" layoutY="103.0" prefHeight="25.0" prefWidth="86.0" />
                   <TextField layoutX="57.0" layoutY="23.0" prefHeight="108.0" prefWidth="310.0" />
                   <Label layoutX="431.0" layoutY="27.0" text="ملاحظات" />
                   <Label layoutX="857.0" layoutY="27.0" text="التاريخ" />
